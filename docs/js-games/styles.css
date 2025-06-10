@@ -1,3 +1,6 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 html, body {
   /* Uklanjamo podrazumevanu pozadinu odavde */
   /* background: url(weather.jpg) no-repeat center center fixed; */
@@ -5,64 +8,81 @@ html, body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: #333;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 25px;
 }
 
 #ville {
   text-transform: capitalize;
-  color: #007bff;
+  color: #34495e;
   font-weight: 500;
-  font-size: 3em;
-  letter-spacing: 1px;
-  margin-bottom: 10px;
+  font-size: 2.8em;
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
 }
 
 #temperature {
-  font-size: 5em;
-  color: #28a745;
-  margin-top: 15px;
-  margin-bottom: 25px;
+  font-size: 5.5em;
+  color: #27ae60;
+  font-weight: 700;
+  margin-top: 5px;
+  margin-bottom: 30px;
 }
 .weatherap {
-  display: block;
-  margin: 80px auto 0px auto;
-  background:  rgba(255, 255, 255, 0.9);
-  width:450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background:  rgba(255, 255, 255, 0.95);
+  width:400px;
+  max-width: 90%;
   text-align: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding: 40px 30px;
   border: none;
-  border-radius: 15px;
-  font-weight: bold;
+  border-radius: 20px;
   position: relative;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
   overflow: hidden;
+  transition: all 0.3s ease-in-out;
 }
+
+.weatherap:hover {
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  transform: translateY(-5px);
+}
+
 #changer {
-  background: #007bff;
+  background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
   cursor: pointer;
   display: inline-block;
-  width:200px;
-  padding: 15px;
-  margin-top: 30px;
-  margin-left: auto;
-  margin-right: auto;
+  width:220px;
+  padding: 15px 25px;
+  margin-top: 35px;
   text-align: center;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   border: none;
-  border-radius: 50px;
-  color: white;
-  font-weight: bold;
+  border-radius: 30px;
+  color: #fff;
+  font-weight: 600;
   text-transform: uppercase;
-  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2);
 }
 
 #changer:hover {
-  background: #0056b3;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0, 123, 255, 0.3);
+  background: linear-gradient(135deg, #62c3b2 0%, #8da3d9 100%);
 }
 
 /* Rain animation styles */
