@@ -63,6 +63,9 @@ function recevoirForecast(ville) {
         const day = date.toLocaleDateString('sr-RS', { weekday: 'long' });
         const dateStr = date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' });
 
+        // Dodajem console.log da proverim ikonu
+        console.log(`Ikona za dan ${day}:`, item.weather[0].icon);
+
         if (!dailyForecasts[day]) {
           dailyForecasts[day] = {
             temp: Math.round(item.main.temp),
