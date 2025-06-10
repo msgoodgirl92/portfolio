@@ -18,103 +18,79 @@ changerDeville.addEventListener('click', () => {
 function recevoirTemperature(ville) {
   const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + ville + '&appid=858d04d03cb7fc6f6a5595a144036a1d&units=metric';
 
-  let requete = new XMLHttpRequest();
-  requete.open('GET', url);
-  requete.responseType = 'json';
-  requete.setRequestHeader('Accept', 'application/json');
-  requete.send();
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      let temperature = Math.round(data.main.temp);
+      let ville = data.name;
 
-  requete.onload = function() {
-    if (requete.readyState === XMLHttpRequest.DONE) {
-      if (requete.status === 200) {
-        let reponse = requete.response;
-        let temperature = Math.round(reponse.main.temp);
-        let ville = reponse.name;
+      // Animacija za temperaturu
+      const tempElement = document.querySelector('#temperature_label');
+      tempElement.style.animation = 'none';
+      tempElement.offsetHeight; // Trigger reflow
+      tempElement.style.animation = 'scaleIn 0.5s ease-out';
 
-        // Animacija za temperaturu
-        const tempElement = document.querySelector('#temperature_label');
-        tempElement.style.animation = 'none';
-        tempElement.offsetHeight; // Trigger reflow
-        tempElement.style.animation = 'scaleIn 0.5s ease-out';
+      // Animacija za grad
+      const villeElement = document.querySelector('#ville');
+      villeElement.style.animation = 'none';
+      villeElement.offsetHeight; // Trigger reflow
+      villeElement.style.animation = 'typewriter 1s steps(20) forwards';
 
-        // Animacija za grad
-        const villeElement = document.querySelector('#ville');
-        villeElement.style.animation = 'none';
-        villeElement.offsetHeight; // Trigger reflow
-        villeElement.style.animation = 'typewriter 1s steps(20) forwards';
+      tempElement.textContent = temperature;
+      villeElement.textContent = ville;
 
-        tempElement.textContent = temperature;
-        villeElement.textContent = ville;
-
-        updateWeatherUI(temperature);
-        console.log('Temperatura primljena: ', temperature);
-      } else {
-        alert("Došlo je do greške. Molimo pokušajte ponovo kasnije.");
-      }
-    }
-  };
-
-  requete.onerror = function() {
-    alert("Došlo je do greške pri povezivanju. Proverite vašu internet konekciju.");
-  };
+      updateWeatherUI(temperature);
+      console.log('Temperatura primljena: ', temperature);
+    })
+    .catch(error => {
+      console.error('Greška:', error);
+      alert("Došlo je do greške. Molimo pokušajte ponovo kasnije.");
+    });
 }
 
 function recevoirForecast(ville) {
   const url = 'https://api.openweathermap.org/data/2.5/forecast?q=' + ville + '&appid=858d04d03cb7fc6f6a5595a144036a1d&units=metric';
 
-  let requete = new XMLHttpRequest();
-  requete.open('GET', url);
-  requete.responseType = 'json';
-  requete.setRequestHeader('Accept', 'application/json');
-  requete.send();
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      let forecastData = data.list;
 
-  requete.onload = function() {
-    if (requete.readyState === XMLHttpRequest.DONE) {
-      if (requete.status === 200) {
-        let reponse = requete.response;
-        let forecastData = reponse.list;
+      // Grupišemo podatke po danima
+      let dailyForecasts = {};
+      forecastData.forEach(item => {
+        const date = new Date(item.dt * 1000);
+        const day = date.toLocaleDateString('sr-RS', { weekday: 'long' });
+        const dateStr = date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' });
 
-        // Grupišemo podatke po danima
-        let dailyForecasts = {};
-        forecastData.forEach(item => {
-          const date = new Date(item.dt * 1000);
-          const day = date.toLocaleDateString('sr-RS', { weekday: 'long' });
-          const dateStr = date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' });
+        if (!dailyForecasts[day]) {
+          dailyForecasts[day] = {
+            temp: Math.round(item.main.temp),
+            icon: item.weather[0].icon,
+            date: dateStr
+          };
+        }
+      });
 
-          if (!dailyForecasts[day]) {
-            dailyForecasts[day] = {
-              temp: Math.round(item.main.temp),
-              icon: item.weather[0].icon,
-              date: dateStr
-            };
-          }
-        });
+      // Prikazujemo prognozu
+      const forecastContainer = document.querySelector('#forecast');
+      forecastContainer.innerHTML = '';
 
-        // Prikazujemo prognozu
-        const forecastContainer = document.querySelector('#forecast');
-        forecastContainer.innerHTML = '';
-
-        Object.entries(dailyForecasts).forEach(([day, data]) => {
-          const forecastItem = document.createElement('div');
-          forecastItem.className = 'forecast-item';
-          forecastItem.innerHTML = `
-            <div class="forecast-day">${day}</div>
-            <img class="forecast-icon" src="https://openweathermap.org/img/wn/${data.icon}@2x.png" alt="Weather icon">
-            <div class="forecast-temp">${data.temp}°C</div>
-            <div class="forecast-date">${data.date}</div>
-          `;
-          forecastContainer.appendChild(forecastItem);
-        });
-
-      } else {
-        console.error("Greška pri dohvatanju prognoze");
-      }
-    }
-  };
-
-  requete.onerror = function() {
-    console.error("Greška pri povezivanju za prognozu");
-  };
+      Object.entries(dailyForecasts).forEach(([day, data]) => {
+        const forecastItem = document.createElement('div');
+        forecastItem.className = 'forecast-item';
+        forecastItem.innerHTML = `
+          <div class="forecast-day">${day}</div>
+          <img class="forecast-icon" src="https://openweathermap.org/img/wn/${data.icon}@2x.png" alt="Weather icon">
+          <div class="forecast-temp">${data.temp}°C</div>
+          <div class="forecast-date">${data.date}</div>
+        `;
+        forecastContainer.appendChild(forecastItem);
+      });
+    })
+    .catch(error => {
+      console.error('Greška pri dohvatanju prognoze:', error);
+    });
 }
 
 // Rain animation JavaScript
