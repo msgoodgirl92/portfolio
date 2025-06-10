@@ -1,40 +1,36 @@
-<<<<<<< HEAD
-let ville ='Beograd';
+let ville = 'Beograd';
 recevoirTemperature(ville);
 
 let changerDeville = document.querySelector('#changer');
-changerDeville.addEventListener('click',() => {
-   ville = prompt ('Za koji GRAD bi zeleli videti prognozu?');
-   recevoirTemperature(ville);
+changerDeville.addEventListener('click', () => {
+  ville = prompt('Za koji GRAD bi zeleli videti prognozu?');
+  recevoirTemperature(ville);
 });
 
-function recevoirTemperature(ville){
-const url = 'https://api.openweathermap.org/data/2.5/weather?q='+ville+'&appid=858d04d03cb7fc6f6a5595a144036a1d&units=metric';
+function recevoirTemperature(ville) {
+  const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + ville + '&appid=858d04d03cb7fc6f6a5595a144036a1d&units=metric';
 
+  let requete = new XMLHttpRequest();
+  requete.open('GET', url);
+  requete.responseType = 'json';
+  requete.send();
 
-let requete = new XMLHttpRequest();
-requete.open('GET', url);
-requete.responseType = 'json';
-requete.send();
+  requete.onload = function() {
+    if (requete.readyState === XMLHttpRequest.DONE) {
+      if (requete.status === 200) {
+        let reponse = requete.response;
+        let temperature = reponse.main.temp;
+        let ville = reponse.name;
+        document.querySelector('#temperature_label').textContent = temperature;
+        document.querySelector('#ville').textContent = ville;
 
-requete.onload = function(){
-  if(requete.readyState === XMLHttpRequest.DONE){
-    if(requete.status === 200){
-      let reponse = requete.response;
-      let temperature = reponse.main.temp;
-      let ville       = reponse.name;
-      document.querySelector('#temperature_label').textContent = temperature;
-      document.querySelector('#ville').textContent =  ville;
-
-      updateWeatherUI(temperature);
-
-      console.log('Temperatura primljena: ', temperature);
-
+        updateWeatherUI(temperature);
+        console.log('Temperatura primljena: ', temperature);
+      } else {
+        alert("Something went wrong, please come back later.");
+      }
     }
-    else{
-      alert("Something went wrong, please come back later.");
-    }
-  }
+  };
 }
 
 // Rain animation JavaScript
@@ -67,87 +63,7 @@ function updateWeatherUI(temperature) {
 
   if (temperature > 25) {
     body.classList.add('sunny-theme');
-    // Sakrij animaciju kiše (već je sakrivena default-om)
-  } else { // Ako je temperatura 25 ili niža
+  } else {
     body.classList.add('cloudy-theme');
-    // Animacija kiše ostaje sakrivena po defaultu.
   }
 }
-}
-=======
-let ville ='Beograd';
-recevoirTemperature(ville);
-
-let changerDeville = document.querySelector('#changer');
-changerDeville.addEventListener('click',() => {
-   ville = prompt ('Za koji GRAD bi zeleli videti prognozu?');
-   recevoirTemperature(ville);
-});
-
-function recevoirTemperature(ville){
-const url = 'https://api.openweathermap.org/data/2.5/weather?q='+ville+'&appid=858d04d03cb7fc6f6a5595a144036a1d&units=metric';
-
-
-let requete = new XMLHttpRequest();
-requete.open('GET', url);
-requete.responseType = 'json';
-requete.send();
-
-requete.onload = function(){
-  if(requete.readyState === XMLHttpRequest.DONE){
-    if(requete.status === 200){
-      let reponse = requete.response;
-      let temperature = reponse.main.temp;
-      let ville       = reponse.name;
-      document.querySelector('#temperature_label').textContent = temperature;
-      document.querySelector('#ville').textContent =  ville;
-
-      updateWeatherUI(temperature);
-
-      console.log('Temperatura primljena: ', temperature);
-
-    }
-    else{
-      alert("Something went wrong, please come back later.");
-    }
-  }
-}
-
-// Rain animation JavaScript
-const raindrops = document.querySelectorAll('.raindrop');
-const rainContainer = document.querySelector('.rain-container');
-
-if (rainContainer) {
-  const containerWidth = rainContainer.offsetWidth;
-
-  raindrops.forEach((drop) => {
-    const randomLeft = Math.random() * containerWidth;
-    const randomDelay = Math.random() * 1; // delay up to 1 second
-    const randomDuration = 0.8 + Math.random() * 0.4; // duration between 0.8s and 1.2s
-
-    drop.style.left = `${randomLeft}px`;
-    drop.style.animationDelay = `${randomDelay}s`;
-    drop.style.animationDuration = `${randomDuration}s`;
-  });
-}
-
-function updateWeatherUI(temperature) {
-  const body = document.body;
-  const rainContainer = document.querySelector('.rain-container');
-
-  // Reset classes
-  body.classList.remove('sunny-theme', 'cloudy-theme');
-  if (rainContainer) {
-    rainContainer.style.display = 'none'; // Hide rain by default
-  }
-
-  if (temperature > 25) {
-    body.classList.add('sunny-theme');
-    // Sakrij animaciju kiše (već je sakrivena default-om)
-  } else { // Ako je temperatura 25 ili niža
-    body.classList.add('cloudy-theme');
-    // Animacija kiše ostaje sakrivena po defaultu.
-  }
-}
-}
->>>>>>> 08b244f (Apply styling changes and fix script.js logic)
