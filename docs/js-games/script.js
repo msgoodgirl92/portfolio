@@ -1,10 +1,16 @@
 let ville = 'Beograd';
-recevoirTemperature(ville);
+
+// Inicijalno učitavanje podataka
+document.addEventListener('DOMContentLoaded', function() {
+  recevoirTemperature(ville);
+});
 
 let changerDeville = document.querySelector('#changer');
 changerDeville.addEventListener('click', () => {
   ville = prompt('Za koji GRAD bi zeleli videti prognozu?');
-  recevoirTemperature(ville);
+  if (ville) { // Provera da li je korisnik uneo grad
+    recevoirTemperature(ville);
+  }
 });
 
 function recevoirTemperature(ville) {
@@ -13,13 +19,14 @@ function recevoirTemperature(ville) {
   let requete = new XMLHttpRequest();
   requete.open('GET', url);
   requete.responseType = 'json';
+  requete.setRequestHeader('Accept', 'application/json');
   requete.send();
 
   requete.onload = function() {
     if (requete.readyState === XMLHttpRequest.DONE) {
       if (requete.status === 200) {
         let reponse = requete.response;
-        let temperature = reponse.main.temp;
+        let temperature = Math.round(reponse.main.temp); // Zaokružujemo temperaturu
         let ville = reponse.name;
         document.querySelector('#temperature_label').textContent = temperature;
         document.querySelector('#ville').textContent = ville;
@@ -27,9 +34,13 @@ function recevoirTemperature(ville) {
         updateWeatherUI(temperature);
         console.log('Temperatura primljena: ', temperature);
       } else {
-        alert("Something went wrong, please come back later.");
+        alert("Došlo je do greške. Molimo pokušajte ponovo kasnije.");
       }
     }
+  };
+
+  requete.onerror = function() {
+    alert("Došlo je do greške pri povezivanju. Proverite vašu internet konekciju.");
   };
 }
 
@@ -42,8 +53,8 @@ if (rainContainer) {
 
   raindrops.forEach((drop) => {
     const randomLeft = Math.random() * containerWidth;
-    const randomDelay = Math.random() * 1; // delay up to 1 second
-    const randomDuration = 0.8 + Math.random() * 0.4; // duration between 0.8s and 1.2s
+    const randomDelay = Math.random() * 1;
+    const randomDuration = 0.8 + Math.random() * 0.4;
 
     drop.style.left = `${randomLeft}px`;
     drop.style.animationDelay = `${randomDelay}s`;
@@ -58,7 +69,7 @@ function updateWeatherUI(temperature) {
   // Reset classes
   body.classList.remove('sunny-theme', 'cloudy-theme');
   if (rainContainer) {
-    rainContainer.style.display = 'none'; // Hide rain by default
+    rainContainer.style.display = 'none';
   }
 
   if (temperature > 25) {
