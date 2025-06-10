@@ -47,7 +47,7 @@ export class ProjectsComponent implements OnInit {
       description: 'Jednostavna web aplikacija za prikazivanje trenutnih vremenskih informacija.',
       image: 'assets/images/weather.jpg',
       technologies: ['HTML', 'CSS', 'JavaScript', 'API'],
-      demoLink: 'https://msgoodgirl92.github.io/portfolio/JS%20igre/weather/weather.html',
+      demoLink: 'https://msgoodgirl92.github.io/portfolio/JS%20igre/weather.html',
       githubLink: 'https://github.com/vas-username/weather-app'
     },
     {
