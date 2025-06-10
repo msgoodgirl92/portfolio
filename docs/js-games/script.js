@@ -8,11 +8,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
 let changerDeville = document.querySelector('#changer');
 changerDeville.addEventListener('click', () => {
-  ville = prompt('Za koji GRAD bi zeleli videti prognozu?');
-  if (ville) {
-    recevoirTemperature(ville);
-    recevoirForecast(ville);
-  }
+  Swal.fire({
+    title: 'Za koji GRAD bi zeleli videti prognozu?',
+    input: 'text',
+    inputLabel: 'Unesite ime grada',
+    inputPlaceholder: 'Beograd',
+    showCancelButton: true,
+    confirmButtonText: 'Prikaži',
+    cancelButtonText: 'Odustani',
+    customClass: {
+      popup: 'swal2-modern',
+      confirmButton: 'swal2-confirm-button',
+      cancelButton: 'swal2-cancel-button'
+    },
+    inputValidator: (value) => {
+      if (!value) {
+        return 'Morate uneti ime grada!';
+      }
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      ville = result.value;
+      if (ville) {
+        recevoirTemperature(ville);
+        recevoirForecast(ville);
+      }
+    }
+  });
 });
 
 function recevoirTemperature(ville) {

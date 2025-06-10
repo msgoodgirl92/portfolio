@@ -271,6 +271,66 @@ h1 {
   color: #7f8c8d;
 }
 
+/* SweetAlert2 Custom Styles */
+.swal2-modern {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
+  font-family: 'Montserrat', sans-serif !important;
+  color: #333 !important;
+}
+
+.swal2-title {
+  color: #2c3e50 !important;
+  font-weight: 700 !important;
+}
+
+.swal2-input {
+  border: 1px solid #ccc !important;
+  border-radius: 10px !important;
+  padding: 10px !important;
+  margin-top: 10px !important;
+  width: 80% !important;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1) !important;
+}
+
+.swal2-input:focus {
+  border-color: #6dd5ed !important;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1), 0 0 0 3px rgba(109, 213, 237, 0.2) !important;
+}
+
+.swal2-confirm-button {
+  background: linear-gradient(135deg, #6dd5ed 0%, #2193b0 100%) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  border-radius: 30px !important;
+  padding: 10px 25px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2) !important;
+}
+
+.swal2-confirm-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3) !important;
+  background: linear-gradient(135deg, #4cb5d8 0%, #1a7791 100%) !important;
+}
+
+.swal2-cancel-button {
+  background: #ccc !important;
+  color: #333 !important;
+  font-weight: 600 !important;
+  border-radius: 30px !important;
+  padding: 10px 25px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.swal2-cancel-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+  background: #bbb !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .weatherap {
