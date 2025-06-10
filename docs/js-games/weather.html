@@ -1,0 +1,52 @@
+<html>
+<head>
+
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+
+<div class="weatherap">
+  <!-- Rain animation container -->
+  <div class="rain-container">
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+  </div>
+  <!-- Titre -->
+  <h1>Vremenska prognoza</h1>
+
+  <div>
+    <span id="ville"></span>
+    <div id="temperature">
+      <span id="temperature_label">xx.x</span> °c
+    </div>
+  </div>
+
+  <!-- Changer de ville -->
+  <div id="changer">
+    PROMENI GRAD
+  </div>
+
+  <!-- 7-day forecast -->
+  <div class="forecast-container">
+    <h2>Prognoza za narednih 5 dana</h2>
+    <div id="forecast" class="forecast-grid">
+      <!-- Forecast items will be added here by JavaScript -->
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="script.js"></script>
+
+</body>
+</html>
