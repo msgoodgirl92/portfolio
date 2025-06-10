@@ -47,7 +47,7 @@ export class ProjectsComponent implements OnInit {
       description: 'Jednostavna web aplikacija za prikazivanje trenutnih vremenskih informacija.',
       image: 'assets/images/weather.jpg',
       technologies: ['HTML', 'CSS', 'JavaScript', 'API'],
-      demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/weather/weather.html',
+      demoLink: 'https://msgoodgirl92.github.io/portfolio/JS%20igre/weather/weather.html',
       githubLink: 'https://github.com/vas-username/weather-app'
     },
     {
@@ -56,7 +56,7 @@ export class ProjectsComponent implements OnInit {
       description: 'Jednostavna web aplikacija za kalkulator.',
       image: 'assets/images/calculator.jpg',
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/calculator/calculator.html',
+      demoLink: 'https://msgoodgirl92.github.io/portfolio/JS%20igre/calculator.html',
       githubLink: 'https://github.com/vas-username/calculator-app'
     },
     {
@@ -65,7 +65,7 @@ export class ProjectsComponent implements OnInit {
       description: 'Klasična igra Iks Oks (Tic-Tac-Toe).',
       image: 'assets/images/tic-tac-toe.jpg',
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/iksoks/iksoks.html',
+      demoLink: 'https://msgoodgirl92.github.io/portfolio/JS%20igre/iksoks.html',
       githubLink: 'https://github.com/vas-username/tic-tac-toe-app'
     },
     {

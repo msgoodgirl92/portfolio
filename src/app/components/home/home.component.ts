@@ -41,7 +41,7 @@ export class HomeComponent {
       title: 'Weather App',
       description: 'A simple web application to display current weather information.',
       image: 'assets/images/weather.jpg',
-      demoUrl: 'C:/Users/desan/portfolio/src/js%20igre/weather.html',
+      demoUrl: 'https://msgoodgirl92.github.io/portfolio/JS%20igre/weather/weather.html',
       githubUrl: 'https://github.com/vas-username/weather-app',
       technologies: ['HTML', 'CSS', 'JavaScript', 'API']
     },
