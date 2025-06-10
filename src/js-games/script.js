@@ -66,15 +66,12 @@ function updateWeatherUI(temperature) {
 
   if (temperature > 25) {
     body.classList.add('sunny-theme');
-    // Sakrij animaciju kiše
-  } else if (temperature < 20) {
+    // Sakrij animaciju kiše (već je sakrivena default-om)
+  } else { // Ako je temperatura 25 ili niža
     body.classList.add('cloudy-theme');
     if (rainContainer) {
       rainContainer.style.display = 'block'; // Prikaži animaciju kiše
     }
-  } else {
-    // Podrazumevani izgled za temperature između 20 i 25
-    // Možda ostaviti default pozadinu ili dodati treću temu
   }
 }
 }
