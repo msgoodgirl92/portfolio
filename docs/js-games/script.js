@@ -3,6 +3,7 @@ let ville = 'Beograd';
 // Inicijalno učitavanje podataka
 document.addEventListener('DOMContentLoaded', function() {
   recevoirTemperature(ville);
+  recevoirForecast(ville);
 });
 
 let changerDeville = document.querySelector('#changer');
@@ -10,6 +11,7 @@ changerDeville.addEventListener('click', () => {
   ville = prompt('Za koji GRAD bi zeleli videti prognozu?');
   if (ville) {
     recevoirTemperature(ville);
+    recevoirForecast(ville);
   }
 });
 
@@ -54,6 +56,64 @@ function recevoirTemperature(ville) {
 
   requete.onerror = function() {
     alert("Došlo je do greške pri povezivanju. Proverite vašu internet konekciju.");
+  };
+}
+
+function recevoirForecast(ville) {
+  const url = 'https://api.openweathermap.org/data/2.5/forecast?q=' + ville + '&appid=858d04d03cb7fc6f6a5595a144036a1d&units=metric';
+
+  let requete = new XMLHttpRequest();
+  requete.open('GET', url);
+  requete.responseType = 'json';
+  requete.setRequestHeader('Accept', 'application/json');
+  requete.send();
+
+  requete.onload = function() {
+    if (requete.readyState === XMLHttpRequest.DONE) {
+      if (requete.status === 200) {
+        let reponse = requete.response;
+        let forecastData = reponse.list;
+
+        // Grupišemo podatke po danima
+        let dailyForecasts = {};
+        forecastData.forEach(item => {
+          const date = new Date(item.dt * 1000);
+          const day = date.toLocaleDateString('sr-RS', { weekday: 'long' });
+          const dateStr = date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' });
+
+          if (!dailyForecasts[day]) {
+            dailyForecasts[day] = {
+              temp: Math.round(item.main.temp),
+              icon: item.weather[0].icon,
+              date: dateStr
+            };
+          }
+        });
+
+        // Prikazujemo prognozu
+        const forecastContainer = document.querySelector('#forecast');
+        forecastContainer.innerHTML = '';
+
+        Object.entries(dailyForecasts).forEach(([day, data]) => {
+          const forecastItem = document.createElement('div');
+          forecastItem.className = 'forecast-item';
+          forecastItem.innerHTML = `
+            <div class="forecast-day">${day}</div>
+            <img class="forecast-icon" src="https://openweathermap.org/img/wn/${data.icon}@2x.png" alt="Weather icon">
+            <div class="forecast-temp">${data.temp}°C</div>
+            <div class="forecast-date">${data.date}</div>
+          `;
+          forecastContainer.appendChild(forecastItem);
+        });
+
+      } else {
+        console.error("Greška pri dohvatanju prognoze");
+      }
+    }
+  };
+
+  requete.onerror = function() {
+    console.error("Greška pri povezivanju za prognozu");
   };
 }
 
