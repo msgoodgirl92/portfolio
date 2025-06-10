@@ -5,53 +5,64 @@ html, body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
 }
 
 #ville {
   text-transform: capitalize;
+  color: #007bff;
+  font-weight: 500;
+  font-size: 3em;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
 }
 
 #temperature {
-  font-size: 4em;
+  font-size: 5em;
+  color: #28a745;
+  margin-top: 15px;
+  margin-bottom: 25px;
 }
 .weatherap {
   display: block;
   margin: 80px auto 0px auto;
-  background:  rgba(236, 160, 46, 0.671);
+  background:  rgba(255, 255, 255, 0.9);
   width:450px;
   text-align: center;
-  padding-top: 30px;
-  padding-bottom: 60px;
-  border: 2px solid #ffbe0e;
-  border-radius: 25px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  border: none;
+  border-radius: 15px;
   font-weight: bold;
   position: relative;
-}
-#ville {
-  color:#6c7aab;
-  font-weight: bold;
-  font-size: 40px;
-  letter-spacing: 2px;
-
-}
-#temperature {
-  margin-top: 25px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 #changer {
-  background: #8fa4e7;
+  background: #007bff;
   cursor: pointer;
-  display: block;
+  display: inline-block;
   width:200px;
-  padding: 20px;
-  margin-top: 20px;
+  padding: 15px;
+  margin-top: 30px;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  letter-spacing: 2px;
-  border: 2px solid #ffbe0e;
-  border-radius: 25px;
+  letter-spacing: 1.5px;
+  border: none;
+  border-radius: 50px;
   color: white;
   font-weight: bold;
+  text-transform: uppercase;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+#changer:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
 }
 
 /* Rain animation styles */
@@ -90,7 +101,7 @@ html, body {
 
 /* Theme styles */
 .sunny-theme {
-  background: url(sunny.jpg) no-repeat center center fixed; /* Molimo dodajte putanju do sunčane slike */
+  background: url(sunny.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -98,7 +109,7 @@ html, body {
 }
 
 .cloudy-theme {
-  background: url(cloudy.jpg) no-repeat center center fixed; /* Promenjeno na cloudy.jpg */
+  background: url(cloudy.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
