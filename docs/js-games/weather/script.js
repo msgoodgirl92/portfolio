@@ -25,7 +25,7 @@ requete.onload = function(){
       document.querySelector('#temperature_label').textContent = temperature;
       document.querySelector('#ville').textContent =  ville;
 
-
+      updateWeatherUI(temperature);
 
     }
     else{
@@ -50,5 +50,29 @@ if (rainContainer) {
     drop.style.animationDelay = `${randomDelay}s`;
     drop.style.animationDuration = `${randomDuration}s`;
   });
+}
+
+function updateWeatherUI(temperature) {
+  const body = document.body;
+  const rainContainer = document.querySelector('.rain-container');
+
+  // Reset classes
+  body.classList.remove('sunny-theme', 'cloudy-theme');
+  if (rainContainer) {
+    rainContainer.style.display = 'none'; // Hide rain by default
+  }
+
+  if (temperature > 25) {
+    body.classList.add('sunny-theme');
+    // Sakrij animaciju kiše
+  } else if (temperature < 20) {
+    body.classList.add('cloudy-theme');
+    if (rainContainer) {
+      rainContainer.style.display = 'block'; // Prikaži animaciju kiše
+    }
+  } else {
+    // Podrazumevani izgled za temperature između 20 i 25
+    // Možda ostaviti default pozadinu ili dodati treću temu
+  }
 }
 }

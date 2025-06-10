@@ -84,3 +84,20 @@ html, body {
     opacity: 0;
   }
 }
+
+/* Theme styles */
+.sunny-theme {
+  background: url(sunny.jpg) no-repeat center center fixed; /* Molimo dodajte putanju do sunčane slike */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.cloudy-theme {
+  background: url(cloudy.jpg) no-repeat center center fixed; /* Molimo dodajte putanju do oblačne slike */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
