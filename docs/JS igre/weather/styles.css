@@ -24,7 +24,7 @@ html, body {
     border: 2px solid #ffbe0e;
     border-radius: 25px;
     font-weight: bold;
-
+    position: relative;
   }
   #ville {
     color:#6c7aab;
@@ -83,4 +83,21 @@ html, body {
     transform: translateY(calc(100vh + 100px)) translateX(0);
     opacity: 0;
   }
+}
+
+/* Theme styles */
+.sunny-theme {
+  background: url(sunny.jpg) no-repeat center center fixed; /* Molimo dodajte putanju do sunčane slike */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.cloudy-theme {
+  background: url(cloudy.jpg) no-repeat center center fixed; /* Molimo dodajte putanju do oblačne slike */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
