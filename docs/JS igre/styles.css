@@ -1,6 +1,6 @@
 html, body {
   /* Uklanjamo podrazumevanu pozadinu odavde */
-  /* background: url(weather.jpg) no-repeat center center fixed; */
+  background: url(weather.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -43,7 +43,9 @@ html, body {
   display: block;
   width:200px;
   padding: 20px;
-  margin: -32px auto;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
   letter-spacing: 2px;
   border: 2px solid #ffbe0e;
@@ -96,7 +98,7 @@ html, body {
 }
 
 .cloudy-theme {
-  background: url(rainy.jpg) no-repeat center center fixed; /* Promenjeno na rainy.jpg */
+  background: url(cloudy.jpg) no-repeat center center fixed; /* Promenjeno na cloudy.jpg */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
