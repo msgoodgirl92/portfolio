@@ -8,46 +8,37 @@
 <body>
 
 
-<div class="container">
+<div class="weatherap">
+  <!-- Rain animation container -->
+  <div class="rain-container">
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+    <div class="raindrop"></div>
+  </div>
+  <!-- Titre -->
+  <h1>Vremenska prognoza</h1>
 
-    <div class="row justify-contant-center">
-
-      <div class="weatherap col-md-8">
-        <!-- Rain animation container -->
-        <div class="rain-container">
-          <div class="raindrop"></div>
-          <div class="raindrop"></div>
-          <div class="raindrop"></div>
-          <div class="raindrop"></div>
-          <div class="raindrop"></div>
-          <div class="raindrop"></div>
-          <div class="raindrop"></div>
-          <div class="raindrop"></div>
-          <div class="raindrop"></div>
-          <div class="raindrop"></div>
-        </div>
-        <!-- Titre -->
-        <h1 class="text-center mt-5">Vremenska prognoza</h1>
-
-        <div class="text-center">
-          <span  id="ville"></span>
-          <div id="temperature">
-            <span id="temperature_label">
-              xx.x
-            </span> °c
-           </div>
-        </div>
-
-        <!-- Changer de ville -->
-        <div id="changer" class="mt-2 text-center p-3 text-white font-weight-bold text-uppercase d-inline-block">
-          PROMENI GRAD
-        </div>
-      </div>
-
+  <div>
+    <span id="ville"></span>
+    <div id="temperature">
+      <span id="temperature_label">xx.x</span> °c
     </div>
+  </div>
 
+  <!-- Changer de ville -->
+  <div id="changer">
+    PROMENI GRAD
+  </div>
+</div>
 
-    </body>
-    <script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="script.js"></script>
 
-      </html>
+</body>
+</html>
