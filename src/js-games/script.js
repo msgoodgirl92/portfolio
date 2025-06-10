@@ -27,6 +27,8 @@ requete.onload = function(){
 
       updateWeatherUI(temperature);
 
+      console.log('Temperatura primljena: ', temperature);
+
     }
     else{
       alert("Something went wrong, please come back later.");
