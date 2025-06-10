@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 let changerDeville = document.querySelector('#changer');
 changerDeville.addEventListener('click', () => {
   ville = prompt('Za koji GRAD bi zeleli videti prognozu?');
-  if (ville) { // Provera da li je korisnik uneo grad
+  if (ville) {
     recevoirTemperature(ville);
   }
 });
@@ -26,10 +26,23 @@ function recevoirTemperature(ville) {
     if (requete.readyState === XMLHttpRequest.DONE) {
       if (requete.status === 200) {
         let reponse = requete.response;
-        let temperature = Math.round(reponse.main.temp); // Zaokružujemo temperaturu
+        let temperature = Math.round(reponse.main.temp);
         let ville = reponse.name;
-        document.querySelector('#temperature_label').textContent = temperature;
-        document.querySelector('#ville').textContent = ville;
+
+        // Animacija za temperaturu
+        const tempElement = document.querySelector('#temperature_label');
+        tempElement.style.animation = 'none';
+        tempElement.offsetHeight; // Trigger reflow
+        tempElement.style.animation = 'scaleIn 0.5s ease-out';
+
+        // Animacija za grad
+        const villeElement = document.querySelector('#ville');
+        villeElement.style.animation = 'none';
+        villeElement.offsetHeight; // Trigger reflow
+        villeElement.style.animation = 'typewriter 1s steps(20) forwards';
+
+        tempElement.textContent = temperature;
+        villeElement.textContent = ville;
 
         updateWeatherUI(temperature);
         console.log('Temperatura primljena: ', temperature);
