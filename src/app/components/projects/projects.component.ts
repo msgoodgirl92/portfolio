@@ -54,7 +54,7 @@ export class ProjectsComponent implements OnInit {
       id: 3,
       title: 'Kalkulator',
       description: 'Jednostavna web aplikacija za kalkulator.',
-      image: 'assets/images/calculator.jpg',
+      image: 'assets/images/1112.png',
       technologies: ['HTML', 'CSS', 'JavaScript'],
       demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/calculator.html',
       githubLink: 'https://github.com/vas-username/calculator-app'
