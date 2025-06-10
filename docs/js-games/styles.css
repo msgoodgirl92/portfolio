@@ -264,6 +264,8 @@ h1 {
   width: 60px;
   height: 60px;
   margin: 10px 0;
+  border: 2px solid red;
+  background-color: yellow;
 }
 
 .forecast-date {
