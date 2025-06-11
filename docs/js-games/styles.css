@@ -483,6 +483,7 @@ h1 {
   border-radius: 15px;
   text-align: center;
   transition: all 0.3s ease;
+  background: transparent;
 }
 
 .weather-details {
@@ -491,6 +492,7 @@ h1 {
   gap: 20px;
   flex-wrap: wrap;
   margin-top: 10px;
+  background: transparent;
 }
 
 .weather-humidity,
@@ -503,6 +505,7 @@ h1 {
   font-weight: 500;
   transition: all 0.3s ease;
   background: transparent;
+  box-shadow: none;
 }
 
 .weather-humidity:hover,
@@ -510,6 +513,8 @@ h1 {
 .weather-pressure:hover {
   transform: translateY(-3px);
   color: #4cb5d8;
+  background: transparent;
+  box-shadow: none;
 }
 
 /* Loading Indicator Styles */
