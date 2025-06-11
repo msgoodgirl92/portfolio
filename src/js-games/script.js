@@ -89,7 +89,8 @@ function recevoirForecast(ville) {
       let filteredData = data.list.filter(item => {
         const date = new Date(item.dt * 1000);
         date.setHours(0, 0, 0, 0);
-        return date >= tomorrow;
+        // Poredimo samo datume bez vremena
+        return date.getTime() >= tomorrow.getTime();
       });
 
       // Zatim grupišemo podatke po danima
