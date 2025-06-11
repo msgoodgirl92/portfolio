@@ -82,34 +82,34 @@ function recevoirForecast(ville) {
       tomorrow.setHours(0, 0, 0, 0);
 
       // Filtriramo i grupišemo podatke po danima
-      let days = new Set();
       let forecasts = [];
+      let seenDates = new Set();
 
       // Prvo filtriramo sve podatke koji su pre sutrašnjeg dana
-      let filteredData = data.list.filter(item => {
+      data.list.forEach(item => {
         const date = new Date(item.dt * 1000);
         date.setHours(0, 0, 0, 0);
-        // Poredimo samo datume bez vremena
-        return date.getTime() >= tomorrow.getTime();
-      });
 
-      // Zatim grupišemo podatke po danima
-      filteredData.forEach(item => {
-        const date = new Date(item.dt * 1000);
-        date.setHours(0, 0, 0, 0);
+        // Preskačemo sve dane pre sutrašnjeg
+        if (date < tomorrow) return;
+
         const dateStr = date.toISOString().split('T')[0];
 
         // Dodajemo samo jedan podatak po danu
-        if (!days.has(dateStr)) {
-          days.add(dateStr);
+        if (!seenDates.has(dateStr)) {
+          seenDates.add(dateStr);
           forecasts.push({
             temp: Math.round(item.main.temp),
             icon: item.weather[0].icon,
             date: date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' }),
-            day: date.toLocaleDateString('sr-RS', { weekday: 'long' })
+            day: date.toLocaleDateString('sr-RS', { weekday: 'long' }),
+            timestamp: date.getTime()
           });
         }
       });
+
+      // Sortiramo po datumu
+      forecasts.sort((a, b) => a.timestamp - b.timestamp);
 
       // Prikazujemo prognozu
       const forecastContainer = document.querySelector('#forecast');
