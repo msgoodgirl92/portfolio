@@ -85,13 +85,17 @@ function recevoirForecast(ville) {
       let days = new Set();
       let forecasts = [];
 
-      data.list.forEach(item => {
+      // Prvo filtriramo sve podatke koji su pre sutrašnjeg dana
+      let filteredData = data.list.filter(item => {
         const date = new Date(item.dt * 1000);
         date.setHours(0, 0, 0, 0);
+        return date >= tomorrow;
+      });
 
-        // Preskačemo današnji dan
-        if (date < tomorrow) return;
-
+      // Zatim grupišemo podatke po danima
+      filteredData.forEach(item => {
+        const date = new Date(item.dt * 1000);
+        date.setHours(0, 0, 0, 0);
         const dateStr = date.toISOString().split('T')[0];
 
         // Dodajemo samo jedan podatak po danu
@@ -123,7 +127,7 @@ function recevoirForecast(ville) {
         forecastContainer.appendChild(forecastItem);
       });
 
-      // Dodajemo console.log za proveru
+      // Debug logging
       console.log('Broj dana u prognozi:', forecasts.length);
       console.log('Dani u prognozi:', forecasts.map(f => f.day));
     })
