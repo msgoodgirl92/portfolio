@@ -495,20 +495,19 @@ h1 {
   padding: 10px 20px;
   border-radius: 10px;
   font-size: 1.1em;
-  color: #2c3e50;
+  color: white;
   font-weight: 500;
   transition: all 0.3s ease;
-  background: none !important;
-  box-shadow: none !important;
+  background: linear-gradient(135deg, #7de5fd 0%, #31a3c0 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .weather-humidity:hover,
 .weather-wind:hover,
 .weather-pressure:hover {
   transform: translateY(-3px);
-  color: #4cb5d8;
-  background: none !important;
-  box-shadow: none !important;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #7de5fd 0%, #31a3c0 100%);
 }
 
 #loading-indicator {
