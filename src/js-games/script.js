@@ -77,23 +77,28 @@ function recevoirForecast(ville) {
     .then(response => response.json())
     .then(data => {
       let forecastData = data.list;
-      const today = new Date().toLocaleDateString('sr-RS', { weekday: 'long' });
 
       // Grupišemo podatke po danima
       let dailyForecasts = {};
+      let today = new Date();
+      today.setHours(0, 0, 0, 0); // Postavljamo vreme na početak dana
+
       forecastData.forEach(item => {
         const date = new Date(item.dt * 1000);
-        const day = date.toLocaleDateString('sr-RS', { weekday: 'long' });
-        const dateStr = date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' });
+        date.setHours(0, 0, 0, 0); // Postavljamo vreme na početak dana za poređenje
 
         // Preskačemo današnji dan
-        if (day === today) return;
+        if (date.getTime() === today.getTime()) return;
+
+        const day = date.toLocaleDateString('sr-RS', { weekday: 'long' });
+        const dateStr = date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' });
 
         if (!dailyForecasts[day]) {
           dailyForecasts[day] = {
             temp: Math.round(item.main.temp),
             icon: item.weather[0].icon,
-            date: dateStr
+            date: dateStr,
+            timestamp: date.getTime() // Dodajemo timestamp za sortiranje
           };
         }
       });
@@ -102,18 +107,21 @@ function recevoirForecast(ville) {
       const forecastContainer = document.querySelector('#forecast');
       forecastContainer.innerHTML = '';
 
-      // Uzimamo samo prvih 5 dana
-      Object.entries(dailyForecasts).slice(0, 5).forEach(([day, data]) => {
-        const forecastItem = document.createElement('div');
-        forecastItem.className = 'forecast-item';
-        forecastItem.innerHTML = `
-          <div class="forecast-day">${day}</div>
-          <img class="forecast-icon" src="https://openweathermap.org/img/wn/${data.icon}@2x.png" alt="Weather icon">
-          <div class="forecast-temp">${data.temp}°C</div>
-          <div class="forecast-date">${data.date}</div>
-        `;
-        forecastContainer.appendChild(forecastItem);
-      });
+      // Sortiramo po datumu i uzimamo prvih 5 dana
+      Object.entries(dailyForecasts)
+        .sort(([, a], [, b]) => a.timestamp - b.timestamp)
+        .slice(0, 5)
+        .forEach(([day, data]) => {
+          const forecastItem = document.createElement('div');
+          forecastItem.className = 'forecast-item';
+          forecastItem.innerHTML = `
+            <div class="forecast-day">${day}</div>
+            <img class="forecast-icon" src="https://openweathermap.org/img/wn/${data.icon}@2x.png" alt="Weather icon">
+            <div class="forecast-temp">${data.temp}°C</div>
+            <div class="forecast-date">${data.date}</div>
+          `;
+          forecastContainer.appendChild(forecastItem);
+        });
     })
     .catch(error => {
       console.error('Greška pri dohvatanju prognoze:', error);
