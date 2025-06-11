@@ -79,19 +79,20 @@ function recevoirForecast(ville) {
       let forecastData = data.list;
 
       // Grupišemo podatke po danima
-      let dailyForecasts = new Map(); // Koristimo Map za bolje upravljanje podacima
-      let today = new Date();
-      today.setHours(0, 0, 0, 0);
+      let dailyForecasts = new Map();
+      let tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1); // Postavljamo na sutrašnji dan
+      tomorrow.setHours(0, 0, 0, 0);
 
       // Prvo grupišemo sve podatke po danima
       forecastData.forEach(item => {
         const date = new Date(item.dt * 1000);
         date.setHours(0, 0, 0, 0);
 
-        // Preskačemo današnji dan
-        if (date.getTime() === today.getTime()) return;
+        // Preskačemo sve dane pre sutrašnjeg
+        if (date.getTime() < tomorrow.getTime()) return;
 
-        const dayKey = date.toISOString().split('T')[0]; // Koristimo ISO string kao ključ
+        const dayKey = date.toISOString().split('T')[0];
 
         if (!dailyForecasts.has(dayKey)) {
           dailyForecasts.set(dayKey, {
