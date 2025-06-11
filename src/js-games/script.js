@@ -79,27 +79,28 @@ function recevoirForecast(ville) {
       let forecastData = data.list;
 
       // Grupišemo podatke po danima
-      let dailyForecasts = {};
+      let dailyForecasts = new Map(); // Koristimo Map za bolje upravljanje podacima
       let today = new Date();
-      today.setHours(0, 0, 0, 0); // Postavljamo vreme na početak dana
+      today.setHours(0, 0, 0, 0);
 
+      // Prvo grupišemo sve podatke po danima
       forecastData.forEach(item => {
         const date = new Date(item.dt * 1000);
-        date.setHours(0, 0, 0, 0); // Postavljamo vreme na početak dana za poređenje
+        date.setHours(0, 0, 0, 0);
 
         // Preskačemo današnji dan
         if (date.getTime() === today.getTime()) return;
 
-        const day = date.toLocaleDateString('sr-RS', { weekday: 'long' });
-        const dateStr = date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' });
+        const dayKey = date.toISOString().split('T')[0]; // Koristimo ISO string kao ključ
 
-        if (!dailyForecasts[day]) {
-          dailyForecasts[day] = {
+        if (!dailyForecasts.has(dayKey)) {
+          dailyForecasts.set(dayKey, {
             temp: Math.round(item.main.temp),
             icon: item.weather[0].icon,
-            date: dateStr,
-            timestamp: date.getTime() // Dodajemo timestamp za sortiranje
-          };
+            date: date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' }),
+            day: date.toLocaleDateString('sr-RS', { weekday: 'long' }),
+            timestamp: date.getTime()
+          });
         }
       });
 
@@ -107,15 +108,15 @@ function recevoirForecast(ville) {
       const forecastContainer = document.querySelector('#forecast');
       forecastContainer.innerHTML = '';
 
-      // Sortiramo po datumu i uzimamo prvih 5 dana
-      Object.entries(dailyForecasts)
-        .sort(([, a], [, b]) => a.timestamp - b.timestamp)
+      // Konvertujemo Map u niz, sortiramo i uzimamo prvih 5 dana
+      Array.from(dailyForecasts.values())
+        .sort((a, b) => a.timestamp - b.timestamp)
         .slice(0, 5)
-        .forEach(([day, data]) => {
+        .forEach(data => {
           const forecastItem = document.createElement('div');
           forecastItem.className = 'forecast-item';
           forecastItem.innerHTML = `
-            <div class="forecast-day">${day}</div>
+            <div class="forecast-day">${data.day}</div>
             <img class="forecast-icon" src="https://openweathermap.org/img/wn/${data.icon}@2x.png" alt="Weather icon">
             <div class="forecast-temp">${data.temp}°C</div>
             <div class="forecast-date">${data.date}</div>
