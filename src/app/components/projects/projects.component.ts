@@ -150,4 +150,8 @@ export class ProjectsComponent implements OnInit {
       window.open(url, '_blank');
     }
   }
+
+  get featuredProjects() {
+    return this.projects.slice(0, 3);
+  }
 }
