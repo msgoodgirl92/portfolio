@@ -102,9 +102,12 @@ function recevoirForecast(ville) {
           let icon = item.weather[0].icon;
           const temp = Math.round(item.main.temp);
 
+          console.log(`Datum: ${dateStr}, Temperatura: ${temp}°C`); // Debug ispis
+
           // Ako je temperatura iznad 25°C, koristimo sunčanu ikonu
           if (temp > 25) {
-            icon = '02d'; // malo oblačno sa suncem
+            icon = '01d'; // sunčano
+            console.log(`Postavljamo sunčanu ikonu za ${dateStr}`); // Debug ispis
           }
 
           dailyTemps[dateStr] = {
