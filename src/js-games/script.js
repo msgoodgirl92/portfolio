@@ -158,8 +158,8 @@ function recevoirForecast(ville) {
         if (data.maxTemp > 25) {
           // Prvo pokušaj lokalno, zatim za GitHub Pages
           iconUrl = (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost')
-            ? '../assets/images/sun.png'
-            : 'src/assets/images/sun.png';
+            ? 'sun.png'
+            : 'sun.png';
         }
 
         forecastItem.innerHTML = `
