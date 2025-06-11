@@ -81,49 +81,37 @@ function recevoirForecast(ville) {
       tomorrow.setDate(tomorrow.getDate() + 1);
       tomorrow.setHours(0, 0, 0, 0);
 
-      // Filtriramo podatke da počnemo od sutrašnjeg dana
-      let filteredData = data.list.filter(item => {
-        const itemDate = new Date(item.dt * 1000);
-        itemDate.setHours(0, 0, 0, 0);
-        return itemDate >= tomorrow;
-      });
+      // Filtriramo i grupišemo podatke po danima
+      let days = new Set();
+      let forecasts = [];
 
-      // Grupišemo podatke po danima
-      let dailyForecasts = [];
-      let currentDate = null;
-      let currentDayData = null;
-
-      filteredData.forEach(item => {
+      data.list.forEach(item => {
         const date = new Date(item.dt * 1000);
         date.setHours(0, 0, 0, 0);
+
+        // Preskačemo današnji dan
+        if (date < tomorrow) return;
+
         const dateStr = date.toISOString().split('T')[0];
 
-        if (dateStr !== currentDate) {
-          if (currentDayData) {
-            dailyForecasts.push(currentDayData);
-          }
-          currentDate = dateStr;
-          currentDayData = {
+        // Dodajemo samo jedan podatak po danu
+        if (!days.has(dateStr)) {
+          days.add(dateStr);
+          forecasts.push({
             temp: Math.round(item.main.temp),
             icon: item.weather[0].icon,
             date: date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' }),
-            day: date.toLocaleDateString('sr-RS', { weekday: 'long' }),
-            timestamp: date.getTime()
-          };
+            day: date.toLocaleDateString('sr-RS', { weekday: 'long' })
+          });
         }
       });
-
-      // Dodajemo poslednji dan ako postoji
-      if (currentDayData) {
-        dailyForecasts.push(currentDayData);
-      }
 
       // Prikazujemo prognozu
       const forecastContainer = document.querySelector('#forecast');
       forecastContainer.innerHTML = '';
 
-      // Prikazujemo prvih 5 dana
-      dailyForecasts.slice(0, 5).forEach(data => {
+      // Prikazujemo tačno 5 dana
+      forecasts.slice(0, 5).forEach(data => {
         const forecastItem = document.createElement('div');
         forecastItem.className = 'forecast-item';
         forecastItem.innerHTML = `
@@ -134,6 +122,10 @@ function recevoirForecast(ville) {
         `;
         forecastContainer.appendChild(forecastItem);
       });
+
+      // Dodajemo console.log za proveru
+      console.log('Broj dana u prognozi:', forecasts.length);
+      console.log('Dani u prognozi:', forecasts.map(f => f.day));
     })
     .catch(error => {
       console.error('Greška pri dohvatanju prognoze:', error);
