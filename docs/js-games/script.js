@@ -62,6 +62,15 @@ function recevoirTemperature(ville) {
       tempElement.textContent = temperature;
       villeElement.textContent = ville;
 
+      // Prikazujemo današnje vremenske podatke
+      const weatherHumidity = document.querySelector('.weather-humidity');
+      const weatherWind = document.querySelector('.weather-wind');
+      const weatherPressure = document.querySelector('.weather-pressure');
+
+      weatherHumidity.textContent = `Vlažnost: ${data.main.humidity}%`;
+      weatherWind.textContent = `Vetar: ${Math.round(data.wind.speed * 3.6)} km/h`;
+      weatherPressure.textContent = `Pritisak: ${data.main.pressure} hPa`;
+
       updateWeatherUI(temperature);
       console.log('Temperatura primljena: ', temperature);
     })
@@ -115,7 +124,11 @@ function recevoirForecast(ville) {
             icon: icon,
             date: date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' }),
             day: date.toLocaleDateString('sr-RS', { weekday: 'long' }),
-            timestamp: date.getTime()
+            timestamp: date.getTime(),
+            description: item.weather[0].description,
+            humidity: item.main.humidity,
+            windSpeed: Math.round(item.wind.speed * 3.6), // Konverzija iz m/s u km/h
+            pressure: item.main.pressure
           };
         }
         dailyTemps[dateStr].temps.push(Math.round(item.main.temp));
@@ -157,6 +170,12 @@ function recevoirForecast(ville) {
           <div class="forecast-temp">
             <span class="max-temp">${data.maxTemp}°C</span>
             <span class="min-temp">${data.minTemp}°C</span>
+          </div>
+          <div class="forecast-details">
+            <div class="forecast-description">${data.description}</div>
+            <div class="forecast-humidity">Vlažnost: ${data.humidity}%</div>
+            <div class="forecast-wind">Vetar: ${data.windSpeed} km/h</div>
+            <div class="forecast-pressure">Pritisak: ${data.pressure} hPa</div>
           </div>
         `;
         forecastContainer.appendChild(forecastItem);
