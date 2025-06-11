@@ -231,10 +231,7 @@ function recevoirForecast(ville) {
         // Određujemo ikonu na osnovu maksimalne temperature
         let iconUrl = `https://openweathermap.org/img/wn/${data.icon}@2x.png`;
         if (data.maxTemp > 25) {
-          // Prvo pokušaj lokalno, zatim za GitHub Pages
-          iconUrl = (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost')
-            ? '../assets/images/sun.png'
-            : '/portfolio/src/assets/images/sun.png';
+          iconUrl = '/portfolio/src/assets/images/sun.png';
         }
 
         forecastItem.innerHTML = `

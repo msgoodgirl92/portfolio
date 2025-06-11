@@ -196,7 +196,7 @@ h1 {
 
 /* Theme styles */
 .sunny-theme {
-  background: url(sunny.jpg) no-repeat center center fixed;
+  background: url(/portfolio/src/assets/images/sunny.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -205,7 +205,7 @@ h1 {
 }
 
 .cloudy-theme {
-  background: url(cloudy.jpg) no-repeat center center fixed;
+  background: url(/portfolio/src/assets/images/cloudy.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
