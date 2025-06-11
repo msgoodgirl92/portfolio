@@ -92,7 +92,6 @@ function recevoirForecast(ville) {
 
       // Filtriramo i grupišemo podatke po danima
       let forecasts = [];
-      let seenDates = new Set();
       let dailyTemps = {};
 
       // Filtriramo sve podatke koji su pre sutrašnjeg dana
@@ -111,12 +110,9 @@ function recevoirForecast(ville) {
           let icon = item.weather[0].icon;
           const temp = Math.round(item.main.temp);
 
-          console.log(`Datum: ${dateStr}, Temperatura: ${temp}°C`); // Debug ispis
-
           // Ako je temperatura iznad 25°C, koristimo sunčanu ikonu
           if (temp > 25) {
             icon = '01d'; // sunčano
-            console.log(`Postavljamo sunčanu ikonu za ${dateStr}`); // Debug ispis
           }
 
           dailyTemps[dateStr] = {
@@ -160,7 +156,10 @@ function recevoirForecast(ville) {
         // Određujemo ikonu na osnovu maksimalne temperature
         let iconUrl = `https://openweathermap.org/img/wn/${data.icon}@2x.png`;
         if (data.maxTemp > 25) {
-          iconUrl = 'sun.png'; // Apsolutna putanja od root direktorijuma
+          // Prvo pokušaj lokalno, zatim za GitHub Pages
+          iconUrl = (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost')
+            ? '../assets/images/sun.png'
+            : 'src/assets/images/sun.png';
         }
 
         forecastItem.innerHTML = `
@@ -180,12 +179,6 @@ function recevoirForecast(ville) {
         `;
         forecastContainer.appendChild(forecastItem);
       });
-
-      // Debug logging
-      console.log('Broj dana u prognozi:', forecasts.length);
-      console.log('Dani u prognozi:', forecasts.map(f => f.day));
-      console.log('Današnji datum:', today.toLocaleDateString());
-
     })
     .catch(error => {
       console.error('Greška pri dohvatanju prognoze:', error);
