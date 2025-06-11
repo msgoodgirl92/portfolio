@@ -221,7 +221,7 @@ h1 {
   gap: 15px;
   padding: 20px;
   margin: 20px auto;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   max-width: 800px;
@@ -229,7 +229,7 @@ h1 {
 }
 
 .forecast-item {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.95);
   padding: 15px;
   border-radius: 15px;
   text-align: center;
@@ -461,7 +461,7 @@ h1 {
   font-weight: 500;
   padding: 10px 15px;
   border-radius: 10px;
-  background: #2193b0;
+  background: linear-gradient(135deg, #7de5fd 0%, #31a3c0 100%);
   transition: all 0.3s ease;
 }
 
@@ -470,7 +470,6 @@ h1 {
 .weather-pressure:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  background: #31a3c0;
 }
 
 #loading-indicator {
