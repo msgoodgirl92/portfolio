@@ -40,7 +40,7 @@ export class HomeComponent {
     {
       title: 'Weather App',
       description: 'A simple web application to display current weather information.',
-      image: 'assets/images/weather2.PNG',
+      image: 'assets/images/weather2.jpg',
       demoUrl: 'https://msgoodgirl92.github.io/portfolio/js-games/weather.html',
       githubUrl: 'https://github.com/vas-username/weather-app',
       technologies: ['HTML', 'CSS', 'JavaScript', 'API']
@@ -53,22 +53,7 @@ export class HomeComponent {
       githubUrl: 'https://github.com/your-username/ecommerce',
       technologies: ['Angular', 'Node.js', 'MongoDB', 'Stripe']
     },
-    {
-      title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates, team features, and progress tracking.',
-      image: 'assets/images/projects/taskmanager.jpg',
-      demoUrl: 'https://demo-taskmanager.com',
-      githubUrl: 'https://github.com/your-username/taskmanager',
-      technologies: ['Angular', 'Firebase', 'Material UI']
-    },
-    {
-      title: 'Portfolio Website',
-      description: 'A responsive portfolio website showcasing projects and skills with modern design and animations.',
-      image: 'assets/images/projects/portfolio.jpg',
-      demoUrl: 'https://your-portfolio.com',
-      githubUrl: 'https://github.com/your-username/portfolio',
-      technologies: ['Angular', 'SCSS', 'TypeScript']
-    }
+
   ];
 
   techStack: TechStack[] = [
