@@ -38,14 +38,14 @@ export class ProjectsComponent implements OnInit {
       description: 'Opis vaše bankovne aplikacije.',
       image: 'assets/images/1.PNG',
       technologies: ['Angular', 'Node.js', 'MongoDB', 'JSON', 'HTML'],
-      demoLink: 'https://vas-demo-link-banka.com',
+      demoLink: 'https://msgoodgirl92.github.io/angularapi/',
       githubLink: 'https://github.com/vas-username/banka-aplikacija'
     },
     {
       id: 2,
       title: 'Weather App',
       description: 'Jednostavna web aplikacija za prikazivanje trenutnih vremenskih informacija.',
-      image: 'assets/images/weather.jpg',
+      image: 'assets/images/weather2.PNG',
       technologies: ['HTML', 'CSS', 'JavaScript', 'API'],
       demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/weather.html',
       githubLink: 'https://github.com/vas-username/weather-app'
