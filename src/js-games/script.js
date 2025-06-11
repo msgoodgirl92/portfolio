@@ -133,6 +133,9 @@ function recevoirForecast(ville) {
       // Debug logging
       console.log('Broj dana u prognozi:', forecasts.length);
       console.log('Dani u prognozi:', forecasts.map(f => f.day));
+      console.log('Današnji datum:', today.toLocaleDateString());
+      console.log('Sutrašnji datum:', tomorrow.toLocaleDateString());
+      console.log('Svi datumi iz API-ja:', data.list.map(item => new Date(item.dt * 1000).toLocaleDateString()));
     })
     .catch(error => {
       console.error('Greška pri dohvatanju prognoze:', error);
