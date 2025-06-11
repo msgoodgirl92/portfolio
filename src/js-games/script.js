@@ -104,7 +104,7 @@ function recevoirForecast(ville) {
 
           // Ako je temperatura iznad 25°C, koristimo sunčanu ikonu
           if (temp > 25) {
-            icon = '01d'; // sunčano
+            icon = '02d'; // malo oblačno sa suncem
           }
 
           dailyTemps[dateStr] = {
