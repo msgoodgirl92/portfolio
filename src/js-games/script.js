@@ -143,9 +143,16 @@ function recevoirForecast(ville) {
       forecasts.slice(0, 5).forEach(data => {
         const forecastItem = document.createElement('div');
         forecastItem.className = 'forecast-item';
+
+        // Određujemo ikonu na osnovu maksimalne temperature
+        let iconUrl = `https://openweathermap.org/img/wn/${data.icon}@2x.png`;
+        if (data.maxTemp > 25) {
+          iconUrl = 'https://openweathermap.org/img/wn/01d@2x.png'; // Sunčano
+        }
+
         forecastItem.innerHTML = `
           <div class="forecast-day">${data.day}</div>
-          <img class="forecast-icon" src="https://openweathermap.org/img/wn/${data.icon}@2x.png" alt="Weather icon">
+          <img class="forecast-icon" src="${iconUrl}" alt="Weather icon">
           <div class="forecast-temp">
             <span class="max-temp">${data.maxTemp}°C</span>
             <span class="min-temp">${data.minTemp}°C</span>
