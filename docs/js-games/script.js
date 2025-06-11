@@ -1,3 +1,4 @@
+// Version: 1.0.2
 let ville = 'Beograd';
 
 // Inicijalno učitavanje podataka
@@ -76,42 +77,62 @@ function recevoirForecast(ville) {
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      let forecastData = data.list;
+      // Postavljamo današnji datum kao početnu tačku
+      let today = new Date();
+      today.setHours(0, 0, 0, 0);
 
-      // Grupišemo podatke po danima
-      let dailyForecasts = {};
-      forecastData.forEach(item => {
+      // Filtriramo i grupišemo podatke po danima
+      let forecasts = [];
+      let seenDates = new Set();
+
+      // Filtriramo sve podatke koji su pre sutrašnjeg dana
+      data.list.forEach(item => {
         const date = new Date(item.dt * 1000);
-        const day = date.toLocaleDateString('sr-RS', { weekday: 'long' });
-        const dateStr = date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' });
+        date.setHours(0, 0, 0, 0);
 
-        // Dodajem console.log da proverim ikonu
-        console.log(`Ikona za dan ${day}:`, item.weather[0].icon);
+        // Preskačemo današnji dan
+        if (date.getTime() <= today.getTime()) return;
 
-        if (!dailyForecasts[day]) {
-          dailyForecasts[day] = {
+        const dateStr = date.toISOString().split('T')[0];
+
+        // Dodajemo samo jedan podatak po danu
+        if (!seenDates.has(dateStr)) {
+          seenDates.add(dateStr);
+          forecasts.push({
             temp: Math.round(item.main.temp),
             icon: item.weather[0].icon,
-            date: dateStr
-          };
+            date: date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' }),
+            day: date.toLocaleDateString('sr-RS', { weekday: 'long' }),
+            timestamp: date.getTime()
+          });
         }
       });
+
+      // Sortiramo po datumu
+      forecasts.sort((a, b) => a.timestamp - b.timestamp);
 
       // Prikazujemo prognozu
       const forecastContainer = document.querySelector('#forecast');
       forecastContainer.innerHTML = '';
 
-      Object.entries(dailyForecasts).forEach(([day, data]) => {
+      // Prikazujemo tačno 5 dana
+      forecasts.slice(0, 5).forEach(data => {
         const forecastItem = document.createElement('div');
         forecastItem.className = 'forecast-item';
         forecastItem.innerHTML = `
-          <div class="forecast-day">${day}</div>
+          <div class="forecast-day">${data.day}</div>
           <img class="forecast-icon" src="https://openweathermap.org/img/wn/${data.icon}@2x.png" alt="Weather icon">
           <div class="forecast-temp">${data.temp}°C</div>
           <div class="forecast-date">${data.date}</div>
         `;
         forecastContainer.appendChild(forecastItem);
       });
+
+      // Debug logging
+      console.log('Broj dana u prognozi:', forecasts.length);
+      console.log('Dani u prognozi:', forecasts.map(f => f.day));
+      console.log('Današnji datum:', today.toLocaleDateString());
+      console.log('Svi datumi iz API-ja:', data.list.map(item => new Date(item.dt * 1000).toLocaleDateString()));
     })
     .catch(error => {
       console.error('Greška pri dohvatanju prognoze:', error);
