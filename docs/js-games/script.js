@@ -1,10 +1,126 @@
 // Version: 1.0.2
 let ville = 'Beograd';
+const API_KEY = '858d04d03cb7fc6f6a5595a144036a1d';
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 2000; // 2 seconds
+
+function showLoading() {
+  hideLoading();
+  const loadingDiv = document.createElement('div');
+  loadingDiv.id = 'loading-indicator';
+  loadingDiv.innerHTML = `
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Učitavanje podataka...</div>
+  `;
+  document.body.appendChild(loadingDiv);
+  loadingDiv.offsetHeight;
+}
+
+function hideLoading() {
+  const loadingDiv = document.getElementById('loading-indicator');
+  if (loadingDiv) {
+    loadingDiv.remove();
+  }
+}
+
+async function fetchWithRetry(url, retries = MAX_RETRIES) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json'
+        },
+        timeout: 10000
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.log(`Attempt ${i + 1} failed:`, error);
+      if (i === retries - 1) throw error;
+      await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
+    }
+  }
+}
+
+function recevoirTemperature(ville) {
+  console.log('Fetching temperature for:', ville);
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${ville}&appid=${API_KEY}&units=metric`;
+
+  return fetchWithRetry(url)
+    .then(data => {
+      console.log('Temperature data received:', data);
+      let temperature = Math.round(data.main.temp);
+      let ville = data.name;
+
+      const tempElement = document.querySelector('#temperature_label');
+      if (!tempElement) {
+        console.error('Temperature element not found');
+        return;
+      }
+      tempElement.style.animation = 'none';
+      tempElement.offsetHeight;
+      tempElement.style.animation = 'scaleIn 0.5s ease-out';
+
+      const villeElement = document.querySelector('#ville');
+      if (!villeElement) {
+        console.error('City element not found');
+        return;
+      }
+      villeElement.style.animation = 'none';
+      villeElement.offsetHeight;
+      villeElement.style.animation = 'typewriter 1s steps(20) forwards';
+
+      tempElement.textContent = temperature;
+      villeElement.textContent = ville;
+
+      const weatherHumidity = document.querySelector('.weather-humidity');
+      const weatherWind = document.querySelector('.weather-wind');
+      const weatherPressure = document.querySelector('.weather-pressure');
+
+      if (weatherHumidity && weatherWind && weatherPressure) {
+        weatherHumidity.textContent = `Vlažnost: ${data.main.humidity}%`;
+        weatherWind.textContent = `Vetar: ${Math.round(data.wind.speed * 3.6)} km/h`;
+        weatherPressure.textContent = `Pritisak: ${data.main.pressure} hPa`;
+      }
+
+      updateWeatherUI(temperature);
+    })
+    .catch(error => {
+      console.error('Error fetching temperature:', error);
+      Swal.fire({
+        title: 'Greška',
+        text: 'Došlo je do greške pri dohvatanju temperature. Molimo proverite vašu internet konekciju i pokušajte ponovo.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    });
+}
 
 // Inicijalno učitavanje podataka
 document.addEventListener('DOMContentLoaded', function() {
-  recevoirTemperature(ville);
-  recevoirForecast(ville);
+  console.log('DOM loaded, starting weather fetch...');
+  showLoading();
+
+  try {
+    Promise.all([
+      recevoirTemperature(ville),
+      recevoirForecast(ville)
+    ]).then(() => {
+      console.log('All data loaded successfully');
+    }).catch(error => {
+      console.error('Error loading data:', error);
+    }).finally(() => {
+      hideLoading();
+    });
+  } catch (error) {
+    console.error('Error during initial load:', error);
+    hideLoading();
+  }
 });
 
 let changerDeville = document.querySelector('#changer');
@@ -38,54 +154,13 @@ changerDeville.addEventListener('click', () => {
   });
 });
 
-function recevoirTemperature(ville) {
-  const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + ville + '&appid=858d04d03cb7fc6f6a5595a144036a1d&units=metric';
-
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      let temperature = Math.round(data.main.temp);
-      let ville = data.name;
-
-      // Animacija za temperaturu
-      const tempElement = document.querySelector('#temperature_label');
-      tempElement.style.animation = 'none';
-      tempElement.offsetHeight; // Trigger reflow
-      tempElement.style.animation = 'scaleIn 0.5s ease-out';
-
-      // Animacija za grad
-      const villeElement = document.querySelector('#ville');
-      villeElement.style.animation = 'none';
-      villeElement.offsetHeight; // Trigger reflow
-      villeElement.style.animation = 'typewriter 1s steps(20) forwards';
-
-      tempElement.textContent = temperature;
-      villeElement.textContent = ville;
-
-      // Prikazujemo današnje vremenske podatke
-      const weatherHumidity = document.querySelector('.weather-humidity');
-      const weatherWind = document.querySelector('.weather-wind');
-      const weatherPressure = document.querySelector('.weather-pressure');
-
-      weatherHumidity.textContent = `Vlažnost: ${data.main.humidity}%`;
-      weatherWind.textContent = `Vetar: ${Math.round(data.wind.speed * 3.6)} km/h`;
-      weatherPressure.textContent = `Pritisak: ${data.main.pressure} hPa`;
-
-      updateWeatherUI(temperature);
-      console.log('Temperatura primljena: ', temperature);
-    })
-    .catch(error => {
-      console.error('Greška:', error);
-      alert("Došlo je do greške. Molimo pokušajte ponovo kasnije.");
-    });
-}
-
 function recevoirForecast(ville) {
-  const url = 'https://api.openweathermap.org/data/2.5/forecast?q=' + ville + '&appid=858d04d03cb7fc6f6a5595a144036a1d&units=metric';
+  console.log('Fetching forecast for:', ville);
+  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${ville}&appid=${API_KEY}&units=metric`;
 
-  fetch(url)
-    .then(response => response.json())
+  fetchWithRetry(url)
     .then(data => {
+      console.log('Forecast data received:', data);
       // Postavljamo današnji datum kao početnu tačku
       let today = new Date();
       today.setHours(0, 0, 0, 0);
@@ -156,10 +231,7 @@ function recevoirForecast(ville) {
         // Određujemo ikonu na osnovu maksimalne temperature
         let iconUrl = `https://openweathermap.org/img/wn/${data.icon}@2x.png`;
         if (data.maxTemp > 25) {
-          // Prvo pokušaj lokalno, zatim za GitHub Pages
-          iconUrl = (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost')
-            ? 'sun.png'
-            : 'sun.png';
+          iconUrl = 'sun.png';
         }
 
         forecastItem.innerHTML = `
@@ -181,7 +253,13 @@ function recevoirForecast(ville) {
       });
     })
     .catch(error => {
-      console.error('Greška pri dohvatanju prognoze:', error);
+      console.error('Error fetching forecast:', error);
+      Swal.fire({
+        title: 'Greška',
+        text: 'Došlo je do greške pri dohvatanju prognoze. Molimo proverite vašu internet konekciju i pokušajte ponovo.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     });
 }
 
