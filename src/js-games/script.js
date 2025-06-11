@@ -84,6 +84,7 @@ function recevoirForecast(ville) {
       // Filtriramo i grupišemo podatke po danima
       let forecasts = [];
       let seenDates = new Set();
+      let dailyTemps = {};
 
       // Filtriramo sve podatke koji su pre sutrašnjeg dana
       data.list.forEach(item => {
@@ -95,17 +96,28 @@ function recevoirForecast(ville) {
 
         const dateStr = date.toISOString().split('T')[0];
 
-        // Dodajemo samo jedan podatak po danu
-        if (!seenDates.has(dateStr)) {
-          seenDates.add(dateStr);
-          forecasts.push({
-            temp: Math.round(item.main.temp),
+        // Prikupljamo sve temperature za svaki dan
+        if (!dailyTemps[dateStr]) {
+          dailyTemps[dateStr] = {
+            temps: [],
             icon: item.weather[0].icon,
             date: date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' }),
             day: date.toLocaleDateString('sr-RS', { weekday: 'long' }),
             timestamp: date.getTime()
-          });
+          };
         }
+        dailyTemps[dateStr].temps.push(Math.round(item.main.temp));
+      });
+
+      // Računamo min i max za svaki dan
+      Object.values(dailyTemps).forEach(dayData => {
+        const minTemp = Math.min(...dayData.temps);
+        const maxTemp = Math.max(...dayData.temps);
+        forecasts.push({
+          ...dayData,
+          minTemp,
+          maxTemp
+        });
       });
 
       // Sortiramo po datumu
@@ -122,7 +134,10 @@ function recevoirForecast(ville) {
         forecastItem.innerHTML = `
           <div class="forecast-day">${data.day}</div>
           <img class="forecast-icon" src="https://openweathermap.org/img/wn/${data.icon}@2x.png" alt="Weather icon">
-          <div class="forecast-temp">${data.temp}°C</div>
+          <div class="forecast-temp">
+            <span class="max-temp">${data.maxTemp}°C</span>
+            <span class="min-temp">${data.minTemp}°C</span>
+          </div>
           <div class="forecast-date">${data.date}</div>
         `;
         forecastContainer.appendChild(forecastItem);
