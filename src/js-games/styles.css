@@ -72,7 +72,7 @@ h1 {
 }
 
 #changer {
-  background: white;
+  background: #ffffff;
   cursor: pointer;
   width: 200px;
   padding: 18px 30px;
@@ -94,7 +94,8 @@ h1 {
 #changer:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 30px rgba(0, 123, 255, 0.4);
-  background: linear-gradient(135deg, #4cb5d8 0%, #1a7791 100%);
+  background: #ffffff;
+  color: #2193b0;
 }
 
 #changer::before {
@@ -430,12 +431,6 @@ h1 {
 
   transition: all 0.3s ease;
   width: 600px;
-}
-
-.current-weather:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(135deg, #7de5fd 0%, #31a3c0 100%);
 }
 
 .weather-details {
