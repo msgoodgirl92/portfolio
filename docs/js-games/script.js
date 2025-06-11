@@ -147,17 +147,17 @@ function recevoirForecast(ville) {
         // Određujemo ikonu na osnovu maksimalne temperature
         let iconUrl = `https://openweathermap.org/img/wn/${data.icon}@2x.png`;
         if (data.maxTemp > 25) {
-          iconUrl = 'https://openweathermap.org/img/wn/01d@2x.png'; // Sunčano
+          iconUrl = 'sun.png'; // Relativna putanja do slike u istom direktorijumu
         }
 
         forecastItem.innerHTML = `
           <div class="forecast-day">${data.day}</div>
+          <div class="forecast-date">${data.date}</div>
           <img class="forecast-icon" src="${iconUrl}" alt="Weather icon">
           <div class="forecast-temp">
             <span class="max-temp">${data.maxTemp}°C</span>
             <span class="min-temp">${data.minTemp}°C</span>
           </div>
-          <div class="forecast-date">${data.date}</div>
         `;
         forecastContainer.appendChild(forecastItem);
       });
