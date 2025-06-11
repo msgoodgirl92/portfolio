@@ -98,9 +98,18 @@ function recevoirForecast(ville) {
 
         // Prikupljamo sve temperature za svaki dan
         if (!dailyTemps[dateStr]) {
+          // Određujemo ikonu na osnovu temperature
+          let icon = item.weather[0].icon;
+          const temp = Math.round(item.main.temp);
+
+          // Ako je temperatura iznad 25°C, koristimo sunčanu ikonu
+          if (temp > 25) {
+            icon = '01d'; // sunčano
+          }
+
           dailyTemps[dateStr] = {
             temps: [],
-            icon: item.weather[0].icon,
+            icon: icon,
             date: date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' }),
             day: date.toLocaleDateString('sr-RS', { weekday: 'long' }),
             timestamp: date.getTime()
