@@ -1,4 +1,4 @@
-// Version: 1.0.1
+// Version: 1.0.2
 let ville = 'Beograd';
 
 // Inicijalno učitavanje podataka
@@ -77,17 +77,15 @@ function recevoirForecast(ville) {
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      // Postavljamo sutrašnji dan kao početni datum
+      // Postavljamo današnji datum kao početnu tačku
       let today = new Date();
       today.setHours(0, 0, 0, 0);
-      let tomorrow = new Date(today);
-      tomorrow.setDate(tomorrow.getDate() + 1);
 
       // Filtriramo i grupišemo podatke po danima
       let forecasts = [];
       let seenDates = new Set();
 
-      // Prvo filtriramo sve podatke koji su pre sutrašnjeg dana
+      // Filtriramo sve podatke koji su pre sutrašnjeg dana
       data.list.forEach(item => {
         const date = new Date(item.dt * 1000);
         date.setHours(0, 0, 0, 0);
@@ -134,7 +132,6 @@ function recevoirForecast(ville) {
       console.log('Broj dana u prognozi:', forecasts.length);
       console.log('Dani u prognozi:', forecasts.map(f => f.day));
       console.log('Današnji datum:', today.toLocaleDateString());
-      console.log('Sutrašnji datum:', tomorrow.toLocaleDateString());
       console.log('Svi datumi iz API-ja:', data.list.map(item => new Date(item.dt * 1000).toLocaleDateString()));
     })
     .catch(error => {
