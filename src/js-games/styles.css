@@ -309,7 +309,6 @@ h1 {
   background: #ffffff !important;
   border-radius: 20px !important;
   padding: 30px !important;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2) !important;
 }
 
 .swal2-title {
@@ -317,6 +316,7 @@ h1 {
   font-size: 1.8em !important;
   font-weight: 600 !important;
   margin-bottom: 20px !important;
+  background: #ffffff !important;
 }
 
 .swal2-input {
@@ -330,7 +330,6 @@ h1 {
 
 .swal2-input:focus {
   border-color: #4cb5d8 !important;
-  box-shadow: 0 0 0 3px rgba(76, 181, 216, 0.2) !important;
 }
 
 .swal2-confirm-button {
@@ -350,7 +349,6 @@ h1 {
 .swal2-confirm-button:hover {
   background: #2193b0 !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 5px 15px rgba(33, 147, 176, 0.3) !important;
 }
 
 .swal2-cancel-button {
@@ -369,7 +367,43 @@ h1 {
 .swal2-cancel-button:hover {
   background: #d0d0d0 !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Dodatni stilovi za SweetAlert2 */
+.swal2-popup {
+  background: #ffffff !important;
+}
+
+.swal2-content {
+  background: #ffffff !important;
+  color: #2c3e50 !important;
+}
+
+.swal2-html-container {
+  background: #ffffff !important;
+  color: #2c3e50 !important;
+}
+
+.swal2-validation-message {
+  background: #ffffff !important;
+  color: #e74c3c !important;
+}
+
+.swal2-icon {
+  background: #ffffff !important;
+}
+
+.swal2-icon-content {
+  background: #ffffff !important;
+}
+
+.swal2-actions {
+  background: #ffffff !important;
+}
+
+.swal2-footer {
+  background: #ffffff !important;
+  color: #2c3e50 !important;
 }
 
 /* Responsive adjustments */
