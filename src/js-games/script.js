@@ -1,5 +1,3 @@
-import Swal from 'sweetalert2';
-
 // Version: 1.0.2
 let ville = 'Beograd';
 
