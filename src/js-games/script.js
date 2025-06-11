@@ -77,9 +77,10 @@ function recevoirForecast(ville) {
     .then(response => response.json())
     .then(data => {
       // Postavljamo sutrašnji dan kao početni datum
-      let tomorrow = new Date();
+      let today = new Date();
+      today.setHours(0, 0, 0, 0);
+      let tomorrow = new Date(today);
       tomorrow.setDate(tomorrow.getDate() + 1);
-      tomorrow.setHours(0, 0, 0, 0);
 
       // Filtriramo i grupišemo podatke po danima
       let forecasts = [];
@@ -90,8 +91,8 @@ function recevoirForecast(ville) {
         const date = new Date(item.dt * 1000);
         date.setHours(0, 0, 0, 0);
 
-        // Preskačemo sve dane pre sutrašnjeg
-        if (date < tomorrow) return;
+        // Preskačemo današnji dan
+        if (date.getTime() <= today.getTime()) return;
 
         const dateStr = date.toISOString().split('T')[0];
 
