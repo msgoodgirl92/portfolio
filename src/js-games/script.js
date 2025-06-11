@@ -1,444 +1,228 @@
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+// Version: 1.0.2
+let ville = 'Beograd';
 
-html, body {
-  /* Uklanjamo podrazumevanu pozadinu odavde */
-  /* background: url(weather.jpg) no-repeat center center fixed; */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  font-family: 'Montserrat', sans-serif;
-  color: #333;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-image 0.5s ease-in-out;
+// Inicijalno učitavanje podataka
+document.addEventListener('DOMContentLoaded', function() {
+  recevoirTemperature(ville);
+  recevoirForecast(ville);
+});
+
+let changerDeville = document.querySelector('#changer');
+changerDeville.addEventListener('click', () => {
+  Swal.fire({
+    title: 'Za koji GRAD bi zeleli videti prognozu?',
+    input: 'text',
+    inputLabel: 'Unesite ime grada',
+    inputPlaceholder: 'Beograd',
+    showCancelButton: true,
+    confirmButtonText: 'Prikaži',
+    cancelButtonText: 'Odustani',
+    customClass: {
+      popup: 'swal2-modern',
+      confirmButton: 'swal2-confirm-button',
+      cancelButton: 'swal2-cancel-button'
+    },
+    inputValidator: (value) => {
+      if (!value) {
+        return 'Morate uneti ime grada!';
+      }
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      ville = result.value;
+      if (ville) {
+        recevoirTemperature(ville);
+        recevoirForecast(ville);
+      }
+    }
+  });
+});
+
+function recevoirTemperature(ville) {
+  const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + ville + '&appid=858d04d03cb7fc6f6a5595a144036a1d&units=metric';
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      let temperature = Math.round(data.main.temp);
+      let ville = data.name;
+
+      // Animacija za temperaturu
+      const tempElement = document.querySelector('#temperature_label');
+      tempElement.style.animation = 'none';
+      tempElement.offsetHeight; // Trigger reflow
+      tempElement.style.animation = 'scaleIn 0.5s ease-out';
+
+      // Animacija za grad
+      const villeElement = document.querySelector('#ville');
+      villeElement.style.animation = 'none';
+      villeElement.offsetHeight; // Trigger reflow
+      villeElement.style.animation = 'typewriter 1s steps(20) forwards';
+
+      tempElement.textContent = temperature;
+      villeElement.textContent = ville;
+
+      // Prikazujemo današnje vremenske podatke
+      const weatherHumidity = document.querySelector('.weather-humidity');
+      const weatherWind = document.querySelector('.weather-wind');
+      const weatherPressure = document.querySelector('.weather-pressure');
+
+      weatherHumidity.textContent = `Vlažnost: ${data.main.humidity}%`;
+      weatherWind.textContent = `Vetar: ${Math.round(data.wind.speed * 3.6)} km/h`;
+      weatherPressure.textContent = `Pritisak: ${data.main.pressure} hPa`;
+
+      updateWeatherUI(temperature);
+      console.log('Temperatura primljena: ', temperature);
+    })
+    .catch(error => {
+      console.error('Greška:', error);
+      alert("Došlo je do greške. Molimo pokušajte ponovo kasnije.");
+    });
 }
 
-h1 {
-  font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 25px;
-  animation: fadeInDown 0.8s ease-out;
+function recevoirForecast(ville) {
+  const url = 'https://api.openweathermap.org/data/2.5/forecast?q=' + ville + '&appid=858d04d03cb7fc6f6a5595a144036a1d&units=metric';
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      // Postavljamo današnji datum kao početnu tačku
+      let today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      // Filtriramo i grupišemo podatke po danima
+      let forecasts = [];
+      let seenDates = new Set();
+      let dailyTemps = {};
+
+      // Filtriramo sve podatke koji su pre sutrašnjeg dana
+      data.list.forEach(item => {
+        const date = new Date(item.dt * 1000);
+        date.setHours(0, 0, 0, 0);
+
+        // Preskačemo današnji dan
+        if (date.getTime() <= today.getTime()) return;
+
+        const dateStr = date.toISOString().split('T')[0];
+
+        // Prikupljamo sve temperature za svaki dan
+        if (!dailyTemps[dateStr]) {
+          // Određujemo ikonu na osnovu temperature
+          let icon = item.weather[0].icon;
+          const temp = Math.round(item.main.temp);
+
+          console.log(`Datum: ${dateStr}, Temperatura: ${temp}°C`); // Debug ispis
+
+          // Ako je temperatura iznad 25°C, koristimo sunčanu ikonu
+          if (temp > 25) {
+            icon = '01d'; // sunčano
+            console.log(`Postavljamo sunčanu ikonu za ${dateStr}`); // Debug ispis
+          }
+
+          dailyTemps[dateStr] = {
+            temps: [],
+            icon: icon,
+            date: date.toLocaleDateString('sr-RS', { day: 'numeric', month: 'short' }),
+            day: date.toLocaleDateString('sr-RS', { weekday: 'long' }),
+            timestamp: date.getTime(),
+            description: item.weather[0].description,
+            humidity: item.main.humidity,
+            windSpeed: Math.round(item.wind.speed * 3.6), // Konverzija iz m/s u km/h
+            pressure: item.main.pressure
+          };
+        }
+        dailyTemps[dateStr].temps.push(Math.round(item.main.temp));
+      });
+
+      // Računamo min i max za svaki dan
+      Object.values(dailyTemps).forEach(dayData => {
+        const minTemp = Math.min(...dayData.temps);
+        const maxTemp = Math.max(...dayData.temps);
+        forecasts.push({
+          ...dayData,
+          minTemp,
+          maxTemp
+        });
+      });
+
+      // Sortiramo po datumu
+      forecasts.sort((a, b) => a.timestamp - b.timestamp);
+
+      // Prikazujemo prognozu
+      const forecastContainer = document.querySelector('#forecast');
+      forecastContainer.innerHTML = '';
+
+      // Prikazujemo tačno 5 dana
+      forecasts.slice(0, 5).forEach(data => {
+        const forecastItem = document.createElement('div');
+        forecastItem.className = 'forecast-item';
+
+        // Određujemo ikonu na osnovu maksimalne temperature
+        let iconUrl = `https://openweathermap.org/img/wn/${data.icon}@2x.png`;
+        if (data.maxTemp > 25) {
+          iconUrl = 'sun.png'; // Relativna putanja do slike u istom direktorijumu
+        }
+
+        forecastItem.innerHTML = `
+          <div class="forecast-day">${data.day}</div>
+          <div class="forecast-date">${data.date}</div>
+          <img class="forecast-icon" src="${iconUrl}" alt="Weather icon">
+          <div class="forecast-temp">
+            <span class="max-temp">${data.maxTemp}°C</span>
+            <span class="min-temp">${data.minTemp}°C</span>
+          </div>
+          <div class="forecast-details">
+            <div class="forecast-description">${data.description}</div>
+            <div class="forecast-humidity">Vlažnost: ${data.humidity}%</div>
+            <div class="forecast-wind">Vetar: ${data.windSpeed} km/h</div>
+            <div class="forecast-pressure">Pritisak: ${data.pressure} hPa</div>
+          </div>
+        `;
+        forecastContainer.appendChild(forecastItem);
+      });
+
+      // Debug logging
+      console.log('Broj dana u prognozi:', forecasts.length);
+      console.log('Dani u prognozi:', forecasts.map(f => f.day));
+      console.log('Današnji datum:', today.toLocaleDateString());
+      console.log('Svi datumi iz API-ja:', data.list.map(item => new Date(item.dt * 1000).toLocaleDateString()));
+    })
+    .catch(error => {
+      console.error('Greška pri dohvatanju prognoze:', error);
+    });
 }
 
-#ville {
-  text-transform: capitalize;
-  color: #34495e;
-  font-weight: 700;
-  font-size: 3.2em;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-  display: inline-block;
-  animation: typewriter 1s steps(20) forwards;
-  white-space: nowrap;
-  overflow: hidden;
+// Rain animation JavaScript
+const raindrops = document.querySelectorAll('.raindrop');
+const rainContainer = document.querySelector('.rain-container');
+
+if (rainContainer) {
+  const containerWidth = rainContainer.offsetWidth;
+
+  raindrops.forEach((drop) => {
+    const randomLeft = Math.random() * containerWidth;
+    const randomDelay = Math.random() * 1;
+    const randomDuration = 0.8 + Math.random() * 0.4;
+
+    drop.style.left = `${randomLeft}px`;
+    drop.style.animationDelay = `${randomDelay}s`;
+    drop.style.animationDuration = `${randomDuration}s`;
+  });
 }
 
-#temperature {
-  font-size: 6em;
-  color: #27ae60;
-  font-weight: 700;
-  margin-top: 10px;
-  margin-bottom: 40px;
-  animation: scaleIn 0.5s ease-out;
-}
+function updateWeatherUI(temperature) {
+  const body = document.body;
+  const rainContainer = document.querySelector('.rain-container');
 
-.weatherap {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.8);
-  width: 850px;
-  max-width: 95%;
-  text-align: center;
-  padding: 50px 40px;
-  border: none;
-  border-radius: 25px;
-  position: relative;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  transition: all 0.4s ease-in-out;
-  animation: fadeIn 0.8s ease-out;
-}
-
-.weatherap:hover {
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
-  transform: translateY(-8px);
-}
-
-#changer {
-  background: linear-gradient(135deg, #6dd5ed 0%, #2193b0 100%);
-  cursor: pointer;
-  width: 250px;
-  padding: 18px 30px;
-  margin-top: 45px;
-  text-align: center;
-  letter-spacing: 1px;
-  border: none;
-  border-radius: 35px;
-  color: #fff;
-  font-weight: 600;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 25px rgba(0, 123, 255, 0.3);
-  position: relative;
-  overflow: hidden;
-}
-
-#changer:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 123, 255, 0.4);
-  background: linear-gradient(135deg, #4cb5d8 0%, #1a7791 100%);
-}
-
-#changer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
-  transition: 0.5s;
-}
-
-#changer:hover::before {
-  left: 100%;
-}
-
-/* Animacije */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
+  // Reset classes
+  body.classList.remove('sunny-theme', 'cloudy-theme');
+  if (rainContainer) {
+    rainContainer.style.display = 'none';
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  if (temperature > 25) {
+    body.classList.add('sunny-theme');
+  } else {
+    body.classList.add('cloudy-theme');
   }
-}
-
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes typewriter {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-/* Rain animation styles */
-.rain-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.raindrop {
-  position: absolute;
-  width: 2px;
-  height: 20px;
-  background: linear-gradient(to bottom, rgba(173, 216, 230, 0) 0%, rgba(173, 216, 230, 0.8) 100%);
-  opacity: 0;
-  animation: fall 1s linear infinite;
-}
-
-@keyframes fall {
-  0% {
-    transform: translateY(-100px) translateX(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(calc(100vh + 100px)) translateX(0);
-    opacity: 0;
-  }
-}
-
-/* Theme styles */
-.sunny-theme {
-  background: url(sunny.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  transition: background-image 0.5s ease-in-out;
-}
-
-.cloudy-theme {
-  background: url(cloudy.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  transition: background-image 0.5s ease-in-out;
-}
-
-/* Forecast styles */
-.forecast-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 20px;
-  margin-top: 20px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.forecast-grid {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 20px;
-  width: 100%;
-}
-
-.forecast-item {
-  background: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  flex: 1;
-}
-
-.forecast-item:hover {
-  transform: translateY(-5px);
-}
-
-.forecast-day {
-  font-weight: 700;
-  color: #34495e;
-  margin-bottom: 5px;
-}
-
-.forecast-temp {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.max-temp {
-  color: #ff6b6b;
-  font-weight: bold;
-}
-
-.min-temp {
-  color: #4dabf7;
-  font-weight: bold;
-}
-
-.forecast-icon {
-  width: 60px;
-  height: 60px;
-  margin: 10px 0;
-}
-
-.forecast-date {
-  font-size: 0.9em;
-  color: #7f8c8d;
-}
-
-.forecast-details {
-  margin-top: 15px;
-  font-size: 0.9em;
-  color: #666;
-}
-
-.forecast-description {
-  text-transform: capitalize;
-  margin-bottom: 5px;
-}
-
-.forecast-humidity,
-.forecast-wind,
-.forecast-pressure {
-  margin: 3px 0;
-}
-
-/* SweetAlert2 Custom Styles */
-.swal2-modern {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-radius: 20px !important;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
-  font-family: 'Montserrat', sans-serif !important;
-  color: #333 !important;
-}
-
-.swal2-title {
-  color: #2c3e50 !important;
-  font-weight: 700 !important;
-}
-
-.swal2-input {
-  border: 1px solid #ccc !important;
-  border-radius: 10px !important;
-  padding: 10px !important;
-  margin-top: 10px !important;
-  width: 80% !important;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1) !important;
-}
-
-.swal2-input:focus {
-  border-color: #6dd5ed !important;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1), 0 0 0 3px rgba(109, 213, 237, 0.2) !important;
-}
-
-.swal2-confirm-button {
-  background: linear-gradient(135deg, #6dd5ed 0%, #2193b0 100%) !important;
-  color: #fff !important;
-  font-weight: 600 !important;
-  border-radius: 30px !important;
-  padding: 10px 25px !important;
-  transition: all 0.3s ease !important;
-  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2) !important;
-}
-
-.swal2-confirm-button:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3) !important;
-  background: linear-gradient(135deg, #4cb5d8 0%, #1a7791 100%) !important;
-}
-
-.swal2-cancel-button {
-  background: #ccc !important;
-  color: #333 !important;
-  font-weight: 600 !important;
-  border-radius: 30px !important;
-  padding: 10px 25px !important;
-  transition: all 0.3s ease !important;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
-}
-
-.swal2-cancel-button:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
-  background: #bbb !important;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .weatherap {
-    width: 95%;
-    padding: 30px 20px;
-  }
-  #ville {
-    font-size: 2.5em;
-  }
-  #temperature {
-    font-size: 4.5em;
-  }
-  .forecast-grid {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 10px;
-  }
-  .forecast-item {
-    padding: 15px;
-  }
-  .forecast-container h2 {
-    font-size: 1.4em;
-  }
-}
-
-@media (max-width: 480px) {
-  .weatherap {
-    padding: 25px 15px;
-  }
-  h1 {
-    font-size: 1.8em;
-  }
-  #ville {
-    font-size: 2em;
-  }
-  #temperature {
-    font-size: 3.5em;
-  }
-  #changer {
-    width: 180px;
-    padding: 12px 20px;
-    margin-top: 30px;
-  }
-  .forecast-grid {
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-  }
-  .forecast-item {
-    padding: 10px;
-  }
-  .forecast-icon {
-    width: 50px;
-    height: 50px;
-  }
-  .forecast-day, .forecast-temp, .forecast-date {
-    font-size: 0.9em;
-  }
-}
-
-.current-weather {
-  margin-top: 20px;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.weather-details {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  font-size: 0.9em;
-  color: #666;
-}
-
-.weather-humidity,
-.weather-wind,
-.weather-pressure {
-  padding: 5px 10px;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
 }
