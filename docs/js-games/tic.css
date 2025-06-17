@@ -130,6 +130,15 @@ table {
     font-weight: bold;
     display: inline-block;
     line-height: 1.2;
+    text-align: center;
+}
+
+#restart span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.2;
+    position: static;
+    top: 0;
 }
 
 #restart:hover {
