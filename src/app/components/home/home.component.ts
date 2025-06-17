@@ -14,10 +14,11 @@ interface Project {
   technologies: string[];
 }
 
-interface TechStack {
+interface BasicSkill {
   name: string;
   description: string;
   icon: string;
+  isSvg?: boolean;
 }
 
 @Component({
@@ -55,26 +56,58 @@ export class HomeComponent {
     }
   ];
 
-  techStack: TechStack[] = [
+  basicSkills: BasicSkill[] = [
+    {
+      name: 'HTML5',
+      description: 'Building the structure and content of web pages',
+      icon: 'fab fa-html5'
+    },
+    {
+      name: 'CSS3',
+      description: 'Styling and designing beautiful user interfaces',
+      icon: 'fab fa-css3-alt'
+    },
+    {
+      name: 'JavaScript',
+      description: 'Adding interactivity and dynamic functionality',
+      icon: 'fab fa-js-square'
+    },
     {
       name: 'Angular',
-      description: 'Modern web framework for building dynamic single-page applications',
-      icon: 'assets/images/tech/angular.png'
+      description: 'Building modern single-page applications',
+      icon: 'fab fa-angular'
     },
     {
       name: 'TypeScript',
-      description: 'Strongly typed programming language that builds on JavaScript',
-      icon: 'assets/images/tech/typescript.png'
+      description: 'Writing more reliable and maintainable code',
+      icon: 'fab fa-js-square'
     },
     {
-      name: 'SCSS',
-      description: 'Advanced CSS preprocessor for better styling and maintainability',
-      icon: 'assets/images/tech/scss.png'
+      name: 'JSON',
+      description: 'Working with data formats and API responses',
+      icon: 'fas fa-code'
     },
     {
-      name: 'Node.js',
-      description: 'JavaScript runtime for building scalable server-side applications',
-      icon: 'assets/images/tech/nodejs.png'
+      name: 'API Integration',
+      description: 'Connecting frontend with backend services',
+      icon: 'fas fa-cloud'
+    },
+    {
+      name: 'Git',
+      description: 'Version control and collaboration',
+      icon: 'fab fa-git-alt'
+    },
+    {
+      name: 'Photoshop',
+      description: 'Creating and editing graphics and designs',
+      icon: 'assets/icons/photoshop.svg',
+      isSvg: true
+    },
+    {
+      name: 'Illustrator',
+      description: 'Designing vector graphics and illustrations',
+      icon: 'assets/icons/illustrator.svg',
+      isSvg: true
     }
   ];
 }

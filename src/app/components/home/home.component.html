@@ -27,16 +27,21 @@
   </div>
 </section>
 
-<section class="tech-stack">
+<section class="tech-stack-preview">
   <div class="container">
-    <h2 class="section-title">Tech Stack</h2>
+    <div class="section-header">
+      <h2 class="section-title">Technologies I Use</h2>
+      <p class="section-subtitle">Learning and building with modern web technologies</p>
+    </div>
+
     <div class="tech-grid">
-      <div class="tech-item" *ngFor="let tech of techStack">
+      <div class="tech-item" *ngFor="let skill of basicSkills">
         <div class="tech-icon">
-          <img [src]="tech.icon" [alt]="tech.name">
+          <i [class]="skill.icon" *ngIf="!skill.isSvg"></i>
+          <img [src]="skill.icon" [alt]="skill.name" *ngIf="skill.isSvg">
         </div>
-        <h3>{{ tech.name }}</h3>
-        <p>{{ tech.description }}</p>
+        <h3>{{ skill.name }}</h3>
+        <p>{{ skill.description }}</p>
       </div>
     </div>
   </div>
@@ -48,27 +53,10 @@
       <div class="about-text">
         <h2 class="section-title">About Me</h2>
         <p>Frontend Developer with a passion for creating beautiful and functional web experiences. I specialize in building modern web applications using Angular and other cutting-edge technologies.</p>
-        <div class="about-stats">
-          <div class="stat-item">
-            <span class="stat-number">3+</span>
-            <span class="stat-label">Years Experience</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">20+</span>
-            <span class="stat-label">Projects Completed</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">15+</span>
-            <span class="stat-label">Happy Clients</span>
-          </div>
-        </div>
-        <a routerLink="/about" class="learn-more-btn">Learn More</a>
       </div>
       <div class="about-image">
-        <img src="assets/images/profile.jpg" alt="Profile Image">
+        <img src="assets/images/ik.jpg" alt="Profile Image">
       </div>
     </div>
   </div>
 </section>
-
-<app-footer></app-footer>

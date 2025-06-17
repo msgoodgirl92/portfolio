@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-contact',
@@ -21,7 +22,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatIconModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    HttpClientModule
   ]
 })
 export class ContactComponent {
@@ -30,7 +32,8 @@ export class ContactComponent {
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private http: HttpClient
   ) {
     this.contactForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
@@ -40,20 +43,65 @@ export class ContactComponent {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.contactForm.valid) {
       this.isSubmitting = true;
 
-      // Simulate form submission
-      setTimeout(() => {
-        this.isSubmitting = false;
+      try {
+        const formData = {
+          name: this.contactForm.value.name,
+          email: this.contactForm.value.email,
+          subject: this.contactForm.value.subject,
+          message: this.contactForm.value.message
+        };
+
+        console.log('Sending email data:', formData);
+
+        // Set up headers for Formspree
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        });
+
+        // Replace 'YOUR_FORMSPREE_FORM_ID' with your actual Formspree form ID
+        // Go to formspree.io, create a form, and get the endpoint URL
+        const formspreeUrl = 'https://formspree.io/f/xeokzagl';
+
+        console.log('Submitting to Formspree:', formspreeUrl);
+
+        const response: any = await this.http.post(formspreeUrl, formData, { headers }).toPromise();
+
+        console.log('Formspree response:', response);
+
         this.contactForm.reset();
-        this.snackBar.open('Message sent successfully!', 'Close', {
-          duration: 3000,
+        this.snackBar.open('Email sent successfully! Check your inbox.', 'Close', {
+          duration: 5000,
           horizontalPosition: 'center',
           verticalPosition: 'bottom'
         });
-      }, 1500);
+      } catch (error: any) {
+        console.error('Contact Form Error:', error);
+
+        let errorMessage = 'Failed to send email. Please try again.';
+
+        if (error.status === 404) {
+          errorMessage = 'Formspree endpoint not found. Please check your form configuration.';
+        } else if (error.status === 429) {
+          errorMessage = 'Too many requests. Please try again later.';
+        } else if (error.status === 400) {
+          errorMessage = error.error?.error || 'Invalid form data.';
+        } else if (error.message) {
+          errorMessage = error.message;
+        }
+
+        this.snackBar.open(errorMessage, 'Close', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom'
+        });
+      } finally {
+        this.isSubmitting = false;
+      }
     }
   }
 
