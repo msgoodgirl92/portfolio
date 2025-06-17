@@ -223,11 +223,17 @@ Grid.prototype.reset = function () {
 
 
 function initialize() {
+    // Force update button text to "New Game"
+    var restartButton = document.getElementById("restart");
+    if (restartButton) {
+        restartButton.textContent = "New Game";
+    }
+
     myGrid = new Grid();
     moves = 0;
     winner = 0;
     gameOver = false;
-    whoseTurn = player; 
+    whoseTurn = player;
     for (var i = 0; i <= myGrid.cells.length - 1; i++) {
         myGrid.cells[i] = 0;
     }
