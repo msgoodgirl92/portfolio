@@ -54,7 +54,7 @@ export class ProjectsComponent implements OnInit {
       id: 3,
       title: 'Tic-Tac-Toe Game',
       description: 'A modern and interactive Tic-Tac-Toe game with beautiful pink design, featuring AI opponent and score tracking.',
-      image: 'assets/images/tic-tac-toe.jpg',
+      image: 'assets/images/iks.PNG',
       technologies: ['HTML', 'CSS', 'JavaScript', 'Game Development'],
       demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/iksoks.html',
       githubLink: 'https://github.com/msgoodgirl92/portfolio'
