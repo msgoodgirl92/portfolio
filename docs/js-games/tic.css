@@ -22,8 +22,8 @@ h1 {
     padding-top: 10px;
     font-size: 2.5em;
     font-weight: bold;
-    color: #333;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 #computer_score, #player_score, #tie_score {
@@ -116,18 +116,20 @@ table {
 
 #restart {
     font-size: 1.8em;
-    height: 0.8em;
+    height: auto;
     cursor: pointer;
     margin: 15px auto;
     overflow: hidden;
     color: #e91e63;
-    padding: 10px 20px;
+    padding: 15px 30px;
     background: white;
     border-radius: 30px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     transition: all 0.3s ease;
     border: none;
     font-weight: bold;
+    display: inline-block;
+    line-height: 1.2;
 }
 
 #restart:hover {
@@ -271,9 +273,9 @@ table {
 /* Responsive design */
 @media (max-width: 768px) {
     h1 {
-        font-size: 1em;
+        font-size: 2em;
         margin-bottom: 5px;
-        margin-top: 10px;
+        color: white;
     }
 
     #table_game {
@@ -302,6 +304,7 @@ table {
     #restart {
         font-size: 1.4em;
         margin: 10px auto;
+        padding: 12px 25px;
     }
 }
 
@@ -312,6 +315,7 @@ table {
         margin-bottom: 5px;
         margin-top: 10px;
         padding-top: 5px;
+        color: white;
     }
 
     #table_game {
@@ -333,6 +337,7 @@ table {
     #restart {
         font-size: 1.2em;
         margin: 8px auto;
+        padding: 10px 20px;
     }
 
     .score-table {
