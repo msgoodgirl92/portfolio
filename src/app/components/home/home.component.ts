@@ -46,14 +46,13 @@ export class HomeComponent {
       technologies: ['HTML', 'CSS', 'JavaScript', 'API']
     },
     {
-      title: 'E-commerce Platform',
-      description: 'A modern e-commerce platform built with Angular and Node.js, featuring real-time inventory management and secure payment processing.',
-      image: 'assets/images/projects/ecommerce.jpg',
-      demoUrl: 'https://demo-ecommerce.com',
-      githubUrl: 'https://github.com/your-username/ecommerce',
-      technologies: ['Angular', 'Node.js', 'MongoDB', 'Stripe']
-    },
-
+      title: 'Tic-Tac-Toe Game',
+      description: 'A modern and interactive Tic-Tac-Toe game with beautiful pink design, featuring AI opponent and score tracking.',
+      image: 'assets/images/tic-tac-toe.jpg',
+      demoUrl: 'https://msgoodgirl92.github.io/portfolio/js-games/iksoks.html',
+      githubUrl: 'https://github.com/msgoodgirl92/portfolio',
+      technologies: ['HTML', 'CSS', 'JavaScript', 'Game Development']
+    }
   ];
 
   techStack: TechStack[] = [

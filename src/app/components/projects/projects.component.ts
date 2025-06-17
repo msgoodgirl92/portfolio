@@ -35,16 +35,16 @@ export class ProjectsComponent implements OnInit {
     {
       id: 1,
       title: 'Banka aplikacija',
-      description: 'Opis vaše bankovne aplikacije.',
+      description: 'A modern web application built with Angular, featuring API integration and responsive design.',
       image: 'assets/images/1.PNG',
-      technologies: ['Angular', 'Node.js', 'MongoDB', 'JSON', 'HTML'],
+      technologies: ['Angular', 'TypeScript', 'SCSS', 'Material UI', 'JSON', 'HTML', 'API'],
       demoLink: 'https://msgoodgirl92.github.io/angularapi/',
-      githubLink: 'https://github.com/vas-username/banka-aplikacija'
+      githubLink: 'https://github.com/msgoodgirl92/angularapi'
     },
     {
       id: 2,
       title: 'Weather App',
-      description: 'Jednostavna web aplikacija za prikazivanje trenutnih vremenskih informacija.',
+      description: 'A simple web application to display current weather information.',
       image: 'assets/images/weather2.jpg',
       technologies: ['HTML', 'CSS', 'JavaScript', 'API'],
       demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/weather.html',
@@ -52,6 +52,15 @@ export class ProjectsComponent implements OnInit {
     },
     {
       id: 3,
+      title: 'Tic-Tac-Toe Game',
+      description: 'A modern and interactive Tic-Tac-Toe game with beautiful pink design, featuring AI opponent and score tracking.',
+      image: 'assets/images/tic-tac-toe.jpg',
+      technologies: ['HTML', 'CSS', 'JavaScript', 'Game Development'],
+      demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/iksoks.html',
+      githubLink: 'https://github.com/msgoodgirl92/portfolio'
+    },
+    {
+      id: 4,
       title: 'Kalkulator',
       description: 'Jednostavna web aplikacija za kalkulator.',
       image: 'assets/images/1112.PNG',
@@ -60,25 +69,7 @@ export class ProjectsComponent implements OnInit {
       githubLink: 'https://github.com/vas-username/calculator-app'
     },
     {
-      id: 4,
-      title: 'Iks Oks igra',
-      description: 'Klasična igra Iks Oks (Tic-Tac-Toe).',
-      image: 'assets/images/tic-tac-toe.jpg',
-      technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/iksoks.html',
-      githubLink: 'https://github.com/vas-username/tic-tac-toe-app'
-    },
-    {
       id: 5,
-      title: 'Angular API Project',
-      description: 'A modern web application built with Angular, featuring API integration and responsive design.',
-      image: 'assets/images/1.PNG',
-      technologies: ['Angular', 'TypeScript', 'SCSS', 'Material UI', 'JSON', 'HTML', 'API'],
-      demoLink: 'https://msgoodgirl92.github.io/angularapi',
-      githubLink: 'https://github.com/msgoodgirl92/angularapi'
-    },
-    {
-      id: 6,
       title: 'E-commerce Platform',
       description: 'A full-featured e-commerce platform with user authentication, product management, and payment integration.',
       image: 'assets/images/projects/ecommerce.jpg',
@@ -87,7 +78,7 @@ export class ProjectsComponent implements OnInit {
       githubLink: 'https://github.com/username/ecommerce'
     },
     {
-      id: 7,
+      id: 6,
       title: 'Task Management App',
       description: 'A collaborative task management application with real-time updates and team features.',
       image: 'assets/images/projects/taskmanager.jpg',
@@ -96,7 +87,7 @@ export class ProjectsComponent implements OnInit {
       githubLink: 'https://github.com/username/taskmanager'
     },
     {
-      id: 8,
+      id: 7,
       title: 'Portfolio Website',
       description: 'A modern portfolio website showcasing projects and skills with smooth animations.',
       image: 'assets/images/projects/portfolio.jpg',
