@@ -229,6 +229,27 @@ function initialize() {
         restartButton.textContent = "New Game";
     }
 
+    // Force update score table styling
+    var scoreCells = document.querySelectorAll('.td_list');
+    scoreCells.forEach(function(cell) {
+        cell.style.backgroundColor = 'black';
+        cell.style.color = 'white';
+        cell.style.border = '2px solid #e91e63';
+        cell.style.padding = '10px 20px';
+        cell.style.borderRadius = '8px';
+        cell.style.margin = '0 5px';
+    });
+
+    var headerCells = document.querySelectorAll('.th_list');
+    headerCells.forEach(function(cell) {
+        cell.style.backgroundColor = 'black';
+        cell.style.color = 'white';
+        cell.style.border = '2px solid #e91e63';
+        cell.style.padding = '10px 20px';
+        cell.style.borderRadius = '8px';
+        cell.style.margin = '0 5px';
+    });
+
     myGrid = new Grid();
     moves = 0;
     winner = 0;
