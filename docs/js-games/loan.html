@@ -3,31 +3,73 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<meta name="viewport"
-		content="width=device-width,
-						initial-scale=1.0" />
-	<title>QR Code Generator</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Loan Calculator</title>
 	<link rel="stylesheet" href="styleloan.css">
-
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-	<div id="loancal">
-	<h1>Univerzalni kalkulator</h1>
-	<div class="input">
+	<div class="container">
+		<div class="calculator-card">
+			<div class="header">
+				<h1>💳 Loan Calculator</h1>
+				<p class="subtitle">Izračunajte mesečnu ratu vašeg kredita</p>
+			</div>
 
-		<p>IZNOS KREDITA: RSD</p>
-		 <input id="amount" type="number" min="1" max="5000000" onchange="computeLoan()">
-		<p>KAMATNA STOPA: %</p>
-		 <input id="interest_rate" min="0" max="100" value="10" step=".1" onchange="computeLoan()">
-		<p>ROK KREDITA U MESECIMA: </p>
-		 <input id="months" type="number" min="1" max="300" value="1" step="1" onchange="computeLoan()">
-		 <p style="text-align: center; font-weight: bold">REZULTAT (unesi i klikni enter)</p>
-		 <h2 id="payment"></h2>
-	   </div>
+			<div class="form-section">
+				<div class="input-group">
+					<label for="amount">Iznos kredita (RSD)</label>
+					<input id="amount" type="number" min="1" max="50000000" placeholder="Unesite iznos kredita">
+				</div>
+
+				<div class="input-group">
+					<label for="interest_rate">Kamatna stopa (%)</label>
+					<input id="interest_rate" type="number" min="0" max="100" value="10" step="0.1" placeholder="Unesite kamatnu stopu">
+				</div>
+
+				<div class="input-group">
+					<label for="months">Rok kredita (meseci)</label>
+					<input id="months" type="number" min="1" max="300" value="12" step="1" placeholder="Unesite rok u mesecima">
+				</div>
+
+				<div class="button-group">
+					<button id="calculateBtn" onclick="computeLoan()">
+						<span class="btn-text">Izračunaj ratu</span>
+						<span class="btn-icon">💰</span>
+					</button>
+					<button id="clearBtn" onclick="clearForm()">
+						<span class="btn-text">Očisti</span>
+						<span class="btn-icon">🔄</span>
+					</button>
+				</div>
+			</div>
+
+			<div id="result" class="result-section" style="display: none;">
+				<div class="result-card">
+					<div class="result-header">
+						<h2>📊 Rezultat</h2>
+					</div>
+					<div class="result-content">
+						<div class="result-item">
+							<span class="label">Mesečna rata:</span>
+							<span id="payment" class="value"></span>
+						</div>
+						<div class="result-item">
+							<span class="label">Ukupan iznos:</span>
+							<span id="totalAmount" class="value"></span>
+						</div>
+						<div class="result-item">
+							<span class="label">Ukupna kamata:</span>
+							<span id="totalInterest" class="value"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
-	<script src="index.js"></script>
+	<script src="loan.js"></script>
 </body>
 
 </html>
