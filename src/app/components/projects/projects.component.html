@@ -2,18 +2,7 @@
   <div class="container">
     <h1 class="section-title">My Projects</h1>
 
-    <!-- Technology Filter -->
-    <div class="tech-filter">
-      <div class="tech-tags">
-        <button
-          *ngFor="let tech of allTechnologies"
-          class="tech-tag"
-          [class.active]="isTechnologySelected(tech)"
-          (click)="toggleTechnology(tech)">
-          {{ tech }}
-        </button>
-      </div>
-    </div>
+
 
     <!-- Projects Grid -->
     <div class="projects-grid">
