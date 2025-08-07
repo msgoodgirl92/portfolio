@@ -43,3 +43,23 @@ function computeLoan(){
         resultSection.style.transform = 'translateY(0)';
     }, 100);
 }
+
+function clearForm(){
+    // Clear all input fields
+    document.querySelector('#amount').value = '';
+    document.querySelector('#interest_rate').value = '10';
+    document.querySelector('#months').value = '12';
+
+    // Hide result section with animation
+    const resultSection = document.querySelector('#result');
+    resultSection.style.transition = 'all 0.3s ease';
+    resultSection.style.opacity = '0';
+    resultSection.style.transform = 'translateY(20px)';
+
+    setTimeout(() => {
+        resultSection.style.display = 'none';
+    }, 300);
+
+    // Focus on first input field
+    document.querySelector('#amount').focus();
+}

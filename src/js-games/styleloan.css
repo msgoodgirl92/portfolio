@@ -84,11 +84,15 @@ body {
   color: #a0aec0;
 }
 
-#calculateBtn {
-  width: 100%;
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+#calculateBtn, #clearBtn {
+  flex: 1;
   padding: 18px 30px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
   border: none;
   border-radius: 12px;
   font-size: 1.1rem;
@@ -100,6 +104,11 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+#calculateBtn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
 }
 
@@ -108,7 +117,18 @@ body {
   box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
 }
 
-#calculateBtn:active {
+#clearBtn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: white;
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+}
+
+#clearBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
+}
+
+#calculateBtn:active, #clearBtn:active {
   transform: translateY(0);
 }
 
@@ -176,6 +196,11 @@ body {
 
   .header h1 {
     font-size: 2rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
   }
 
   .result-item {
