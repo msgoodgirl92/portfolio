@@ -231,7 +231,7 @@ export class ProjectsComponent implements OnInit {
       id: 5,
       title: 'Loan Calculator',
       description: 'Web aplikacija za izračunavanje kredita i mesečnih rata.',
-      image: 'assets/images/1112.PNG',
+      image: 'assets/images/loan.PNG',
       technologies: ['HTML', 'CSS', 'JavaScript'],
       demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/loan.html',
       githubLink: 'https://github.com/msgoodgirl92/portfolio'
@@ -314,4 +314,3 @@ export class ProjectsComponent implements OnInit {
     return this.projects.slice(0, 5);
   }
 }
->>>>>>> ab947ca7abde27266d5f6d72483b1c973bda6795
