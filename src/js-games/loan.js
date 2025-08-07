@@ -1,8 +1,8 @@
 function computeLoan(){
-    //The global constants of some class functions(value) are determined using the following three line codes
-    const amount = document.querySelector('#amount').value;
-    const interest_rate = document.querySelector('#interest_rate').value;
-    const months = document.querySelector('#months').value;
+    // Get input values
+    const amount = parseFloat(document.querySelector('#amount').value);
+    const interest_rate = parseFloat(document.querySelector('#interest_rate').value);
+    const months = parseInt(document.querySelector('#months').value);
 
     // Check if all fields are filled
     if (!amount || !interest_rate || !months) {
@@ -10,24 +10,36 @@ function computeLoan(){
         return;
     }
 
-    //The interest rate has been calculated.
-    //The total amount of interest per month has been calculated by the following calculation.
-    //That calculation is stored in a constant called "interest"
-    const interest = (amount * (interest_rate * 0.01)) / months;
+    // Calculate monthly interest rate
+    const monthlyInterestRate = interest_rate / 100 / 12;
 
-    //The bottom line calculates how much to pay each month.
-    //Here the total amount is divided by the month (which you will input) and the monthly interest is added to it.
-    //All these calculations are stored in a constant called "payment".
-    let payment = ((amount / months) + interest).toFixed(2);
+    // Calculate monthly payment using loan formula
+    const monthlyPayment = amount * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, months)) /
+                          (Math.pow(1 + monthlyInterestRate, months) - 1);
 
-    //regedit to add a comma after every three digits
-    //That is, a comma (,) will be added after every three numbers.
-    //Example 50,000
-    payment = payment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // Calculate total amount and total interest
+    const totalAmount = monthlyPayment * months;
+    const totalInterest = totalAmount - amount;
 
-    //With the help of innerHTML, the information stored in the "payment" is displayed on the webpage.
-    document.querySelector('#payment').innerHTML = `Mesecna rata = ${payment} RSD`;
+    // Format numbers with commas
+    const formatNumber = (num) => {
+        return num.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
 
-    // Show the result section
-    document.querySelector('#result').style.display = 'block';
+    // Display results
+    document.querySelector('#payment').innerHTML = `${formatNumber(monthlyPayment)} RSD`;
+    document.querySelector('#totalAmount').innerHTML = `${formatNumber(totalAmount)} RSD`;
+    document.querySelector('#totalInterest').innerHTML = `${formatNumber(totalInterest)} RSD`;
+
+    // Show the result section with animation
+    const resultSection = document.querySelector('#result');
+    resultSection.style.display = 'block';
+    resultSection.style.opacity = '0';
+    resultSection.style.transform = 'translateY(20px)';
+
+    setTimeout(() => {
+        resultSection.style.transition = 'all 0.5s ease';
+        resultSection.style.opacity = '1';
+        resultSection.style.transform = 'translateY(0)';
+    }, 100);
 }

@@ -1,64 +1,187 @@
-body{
-  background: pink;
-  font-family: sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-#loancal {
-  width: 345px;
-  height: 490px;
-  background-color:white;
-  color: #fff;
-  padding: 10px;
-  margin: 80px auto;
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
-h1 {
-  font-size:30px;
-  text-align: center;
-  color: rgb(209, 61, 147);
-  margin-bottom: 35px;
-}
-.input{
-  margin-left: 40px;
-  margin-right: 40px;
-}
-p{
-color:rgb(209, 61, 147);
-font-size: 17px;
-}
-input{
+
+.container {
   width: 100%;
-  height: 33px;
+  max-width: 500px;
 }
-h2{
+
+.calculator-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.header {
   text-align: center;
-  color: rgb(209, 61, 147);
-  margin-top: 35px;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #718096;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.form-section {
+  margin-bottom: 30px;
+}
+
+.input-group {
+  margin-bottom: 25px;
+}
+
+.input-group label {
+  display: block;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 15px 20px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+  background: #f7fafc;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.input-group input::placeholder {
+  color: #a0aec0;
 }
 
 #calculateBtn {
   width: 100%;
-  height: 40px;
-  background-color: rgb(209, 61, 147);
+  padding: 18px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
   cursor: pointer;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
 }
 
 #calculateBtn:hover {
-  background-color: rgb(180, 50, 120);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
 }
 
-#result {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: #f8f8f8;
-  border-radius: 5px;
-  border: 2px solid rgb(209, 61, 147);
+#calculateBtn:active {
+  transform: translateY(0);
+}
+
+.btn-text {
+  font-size: 1.1rem;
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+}
+
+.result-section {
+  margin-top: 30px;
+}
+
+.result-card {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-radius: 16px;
+  padding: 30px;
+  color: white;
+  box-shadow: 0 15px 35px rgba(240, 147, 251, 0.3);
+}
+
+.result-header h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: white;
+}
+
+.result-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.result-item .label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.result-item .value {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .calculator-card {
+    padding: 30px 20px;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .result-item {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
 }
 
