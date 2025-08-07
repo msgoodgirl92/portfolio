@@ -70,6 +70,15 @@ export class ProjectsComponent implements OnInit {
     },
     {
       id: 5,
+      title: 'Loan Calculator',
+      description: 'Web aplikacija za izračunavanje kredita i mesečnih rata.',
+      image: 'assets/images/loan.PNG',
+      technologies: ['HTML', 'CSS', 'JavaScript'],
+      demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/loan.html',
+      githubLink: 'https://github.com/msgoodgirl92/portfolio'
+    },
+    {
+      id: 6,
       title: 'E-commerce Platform',
       description: 'A full-featured e-commerce platform with user authentication, product management, and payment integration.',
       image: 'assets/images/projects/ecommerce.jpg',
@@ -78,7 +87,7 @@ export class ProjectsComponent implements OnInit {
       githubLink: 'https://github.com/username/ecommerce'
     },
     {
-      id: 6,
+      id: 7,
       title: 'Task Management App',
       description: 'A collaborative task management application with real-time updates and team features.',
       image: 'assets/images/projects/taskmanager.jpg',
@@ -87,7 +96,7 @@ export class ProjectsComponent implements OnInit {
       githubLink: 'https://github.com/username/taskmanager'
     },
     {
-      id: 7,
+      id: 8,
       title: 'Portfolio Website',
       description: 'A modern portfolio website showcasing projects and skills with smooth animations.',
       image: 'assets/images/projects/portfolio.jpg',
@@ -143,6 +152,6 @@ export class ProjectsComponent implements OnInit {
   }
 
   get featuredProjects() {
-    return this.projects.slice(0, 3);
+    return this.projects.slice(0, 5);
   }
 }
