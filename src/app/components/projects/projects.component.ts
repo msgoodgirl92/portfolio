@@ -79,12 +79,12 @@ export class ProjectsComponent implements OnInit {
     },
     {
       id: 6,
-      title: 'E-commerce Platform',
-      description: 'A full-featured e-commerce platform with user authentication, product management, and payment integration.',
-      image: 'assets/images/projects/ecommerce.jpg',
-      technologies: ['Angular', 'Node.js', 'MongoDB', 'Stripe'],
-      demoLink: 'https://demo-ecommerce.com',
-      githubLink: 'https://github.com/username/ecommerce'
+      title: 'Hangman Game',
+      description: 'Klasična Hangman igra sa različitim kategorijama reči (Premier League timovi, filmovi, gradovi) i interaktivnim crtanjem.',
+      image: 'assets/images/iks.PNG',
+      technologies: ['HTML', 'CSS', 'JavaScript', 'Canvas API', 'Game Development'],
+      demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/index2.html',
+      githubLink: 'https://github.com/msgoodgirl92/portfolio'
     },
     {
       id: 7,
