@@ -1,8 +1,7 @@
+<!-- Projects Section -->
 <section class="projects-section">
   <div class="container">
     <h1 class="section-title">My Projects</h1>
-
-    <!-- Projects Grid -->
     <div class="projects-grid">
       <div class="project-card" *ngFor="let project of projects">
         <div class="project-image">
@@ -33,3 +32,49 @@
     </div>
   </div>
 </section>
+
+<section class="websites-section">
+  <div class="container">
+    <h1 class="section-title">Websites</h1>
+    <div class="websites-grid">
+      <div class="website-card" *ngFor="let website of websites">
+
+        <div class="website-image" (click)="openWebsiteInTab(website.image)" style="cursor: pointer;">
+          <img [src]="website.image" [alt]="website.title">
+          <div class="website-overlay">
+            <button class="website-link" type="button" (click)="openWebsiteInTab(website.image)">
+              <mat-icon>launch</mat-icon>
+              Visit Website
+            </button>
+          </div>
+        </div>
+
+        <h3 class="website-title">{{ website.title }}</h3>
+        <p class="website-description">{{ website.description }}</p>
+      </div>
+    </div>
+
+    <!-- Fullscreen lightbox overlay -->
+    <div class="lightbox-backdrop" *ngIf="activeWebsiteImage" (click)="closeWebsiteTab()">
+      <div class="lightbox-content" (click)="$event.stopPropagation()">
+        <button class="lightbox-close" (click)="closeWebsiteTab()" aria-label="Close">×</button>
+        <img [src]="activeWebsiteImage" alt="Website preview" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Logos Section -->
+<section class="logos-section">
+  <div class="container">
+    <h1 class="section-title">Logos</h1>
+    <div class="logos-grid">
+      <div class="logo-card" *ngFor="let logo of logos">
+        <div class="logo-image">
+          <img [src]="logo.image" [attr.alt]="'Company logo'">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
