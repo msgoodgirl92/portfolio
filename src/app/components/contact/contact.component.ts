@@ -74,11 +74,7 @@ export class ContactComponent {
         console.log('Formspree response:', response);
 
         this.contactForm.reset();
-        this.snackBar.open('Email sent successfully! Check your inbox.', 'Close', {
-          duration: 5000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom'
-        });
+        alert('Poruka je poslata');
       } catch (error: any) {
         console.error('Contact Form Error:', error);
 
@@ -94,11 +90,7 @@ export class ContactComponent {
           errorMessage = error.message;
         }
 
-        this.snackBar.open(errorMessage, 'Close', {
-          duration: 5000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom'
-        });
+        alert('Greška pri slanju poruke. Pokušajte ponovo.');
       } finally {
         this.isSubmitting = false;
       }
