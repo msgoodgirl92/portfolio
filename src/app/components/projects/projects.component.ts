@@ -120,7 +120,7 @@ export class ProjectsComponent implements OnInit {
       id: 3,
       title: 'Website 3',
       description: 'Opis trećeg website-a',
-      image: 'assets/images/334.png',
+      image: 'assets/images/33.png',
       url: 'https://example3.com'
     }
   ];
