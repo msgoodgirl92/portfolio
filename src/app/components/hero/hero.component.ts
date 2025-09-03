@@ -23,6 +23,12 @@ export class HeroComponent {
   }
 
   navigateToAbout() {
-    this.router.navigate(['/about']);
+    const aboutSection = document.querySelector('.about-preview');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
   }
 }
