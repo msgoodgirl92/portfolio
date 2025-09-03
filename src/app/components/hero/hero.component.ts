@@ -25,9 +25,9 @@ export class HeroComponent {
   navigateToAbout() {
     const aboutSection = document.querySelector('.about-preview');
     if (aboutSection) {
-      aboutSection.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start' 
+      aboutSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
       });
     }
   }
