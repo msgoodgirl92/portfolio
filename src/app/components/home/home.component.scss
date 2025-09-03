@@ -54,9 +54,10 @@
 
     .cv-download {
       margin-top: 2rem;
+      text-align: center;
 
       button {
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 0.5rem;
         padding: 1rem 2rem;
