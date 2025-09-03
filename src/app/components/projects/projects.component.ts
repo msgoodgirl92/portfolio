@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,6 +14,19 @@ interface Project {
   technologies: string[];
   demoLink: string;
   githubLink: string;
+}
+
+interface Website {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  url: string;
+}
+
+interface Logo {
+  id: number;
+  image: string;
 }
 
 @Component({
@@ -85,30 +98,78 @@ export class ProjectsComponent implements OnInit {
       technologies: ['HTML', 'CSS', 'JavaScript', 'Canvas API', 'Game Development'],
       demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/index2.html',
       githubLink: 'https://github.com/msgoodgirl92/portfolio'
+    }
+  ];
+
+  websites: Website[] = [
+    {
+      id: 1,
+      title: 'Website 1',
+      description: 'Opis prvog website-a',
+      image: 'assets/images/334.png',
+      url: 'https://example1.com'
+    },
+    {
+      id: 2,
+      title: 'Website 2',
+      description: 'Opis drugog website-a',
+      image: 'assets/images/334.png',
+      url: 'https://example2.com'
+    },
+    {
+      id: 3,
+      title: 'Website 3',
+      description: 'Opis trećeg website-a',
+      image: 'assets/images/334.png',
+      url: 'https://example3.com'
+    }
+  ];
+
+  logos: Logo[] = [
+    {
+      id: 1,
+      image: 'assets/logos/soma.png'
+    },
+    {
+      id: 2,
+      image: 'assets/logos/red head.jpg'
+    },
+    {
+      id: 3,
+      image: 'assets/logos/kiko1.jpg'
+    },
+    {
+      id: 4,
+      image: 'assets/logos/kiko.jpg'
+    },
+    {
+      id: 5,
+      image: 'assets/logos/ffgf.png'
+    },
+    {
+      id: 6,
+      image: 'assets/logos/fdfdfd.png'
     },
     {
       id: 7,
-      title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates and team features.',
-      image: 'assets/images/projects/taskmanager.jpg',
-      technologies: ['Angular', 'Firebase', 'Material UI'],
-      demoLink: 'https://demo-taskmanager.com',
-      githubLink: 'https://github.com/username/taskmanager'
+      image: 'assets/logos/DSDS.png'
     },
     {
       id: 8,
-      title: 'Portfolio Website',
-      description: 'A modern portfolio website showcasing projects and skills with smooth animations.',
-      image: 'assets/images/projects/portfolio.jpg',
-      technologies: ['Angular', 'SCSS', 'GSAP'],
-      demoLink: 'https://portfolio-demo.com',
-      githubLink: 'https://github.com/username/portfolio'
+      image: 'assets/logos/555.png'
+    },
+    {
+      id: 9,
+      image: 'assets/logos/121.png'
     }
   ];
 
   filteredProjects: Project[] = [];
   selectedTechnologies: string[] = [];
   allTechnologies: string[] = [];
+
+  // Websites inline preview state
+  activeWebsiteImage: string | null = null;
 
   ngOnInit() {
     this.filteredProjects = [...this.projects];
@@ -151,7 +212,34 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
+  openWebsite(url: string) {
+    if (url && url !== '#') {
+      window.open(url, '_blank');
+    }
+  }
+
+  // Show website screenshot inline below the grid
+  openWebsiteInTab(imageUrl: string) {
+    if (imageUrl) {
+      this.activeWebsiteImage = imageUrl;
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  closeWebsiteTab() {
+    this.activeWebsiteImage = null;
+    document.body.style.overflow = '';
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscapeKey() {
+    if (this.activeWebsiteImage) {
+      this.closeWebsiteTab();
+    }
+  }
+
+
   get featuredProjects() {
-    return this.projects.slice(0, 8);
+    return this.projects.slice(0, 6);
   }
 }
