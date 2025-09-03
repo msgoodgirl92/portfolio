@@ -113,7 +113,7 @@ export class ProjectsComponent implements OnInit {
       id: 2,
       title: 'Website 2',
       description: 'Opis drugog website-a',
-      image: 'assets/images/334.png',
+      image: 'assets/images/22.png',
       url: 'https://example2.com'
     },
     {
@@ -132,7 +132,7 @@ export class ProjectsComponent implements OnInit {
     },
     {
       id: 2,
-      image: 'assets/logos/red head.jpg'
+      image: 'assets/logos/red-head.jpg'
     },
     {
       id: 3,
