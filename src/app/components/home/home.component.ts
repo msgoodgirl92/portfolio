@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { HeroComponent } from '../hero/hero.component';
 import { FooterComponent } from '../footer/footer.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 interface Project {
   title: string;
@@ -26,7 +27,7 @@ interface BasicSkill {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, HeroComponent, FooterComponent, MatIconModule]
+  imports: [CommonModule, RouterModule, HeroComponent, FooterComponent, MatIconModule, MatButtonModule]
 })
 export class HomeComponent {
   featuredProjects: Project[] = [
@@ -110,4 +111,11 @@ export class HomeComponent {
       isSvg: true
     }
   ];
+
+  downloadCV() {
+    const link = document.createElement('a');
+    link.href = 'assets/CVV.pdf';
+    link.download = 'Desanka_CV.pdf';
+    link.click();
+  }
 }
