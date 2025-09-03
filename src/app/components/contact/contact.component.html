@@ -73,4 +73,15 @@
       </div>
     </div>
   </div>
+
+  <!-- Success Message Modal -->
+  <div class="success-modal" *ngIf="showSuccessMessage" (click)="showSuccessMessage = false">
+    <div class="success-content" (click)="$event.stopPropagation()">
+      <div class="success-icon">
+        <mat-icon>check_circle</mat-icon>
+      </div>
+      <h2>Poruka je poslata</h2>
+      <p>Hvala vam! Odgovoriću vam uskoro.</p>
+    </div>
+  </div>
 </section>

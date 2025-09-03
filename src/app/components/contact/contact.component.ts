@@ -29,6 +29,7 @@ import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http'
 export class ContactComponent {
   contactForm: FormGroup;
   isSubmitting = false;
+  showSuccessMessage = false;
 
   constructor(
     private fb: FormBuilder,
@@ -74,7 +75,10 @@ export class ContactComponent {
         console.log('Formspree response:', response);
 
         this.contactForm.reset();
-        alert('Poruka je poslata');
+        this.showSuccessMessage = true;
+        setTimeout(() => {
+          this.showSuccessMessage = false;
+        }, 5000);
       } catch (error: any) {
         console.error('Contact Form Error:', error);
 
@@ -90,7 +94,10 @@ export class ContactComponent {
           errorMessage = error.message;
         }
 
-        alert('Greška pri slanju poruke. Pokušajte ponovo.');
+        this.showSuccessMessage = true;
+        setTimeout(() => {
+          this.showSuccessMessage = false;
+        }, 5000);
       } finally {
         this.isSubmitting = false;
       }
