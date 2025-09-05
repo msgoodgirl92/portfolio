@@ -32,15 +32,16 @@
 .about-preview {
   padding: 100px 0;
   background: white;
+}
+.about-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
 
-  .about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
 
   .about-text {
+      position: relative;
+
     h2 {
       margin-bottom: 30px;
     }
@@ -49,7 +50,16 @@
       font-size: 1.1rem;
       line-height: 1.8;
       color: #4a5568;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
+
+      &:last-of-type {
+        margin-bottom: 40px;
+      }
+
+      strong {
+        color: #2d3436;
+        font-weight: 600;
+      }
     }
 
     .cv-download {
@@ -86,28 +96,14 @@
   }
 
   .about-image {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    background: white;
-    width: 300px;
-    height: 300px;
-    margin: 0 auto;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-      border-radius: 20px;
-    }
-
-    &:hover img {
-      transform: scale(1.05);
-    }
-  }
+  float: right; /* slika ide desno */
+  margin: 0 0 15px 20px; /* razmak od teksta */
+  max-width: 250px; /* ograniči širinu slike */
 }
-
+.about-image img {
+  width: 100%;
+  border-radius: 12px; /* opciono, za lepši izgled */
+}
 .about-card {
   max-width: 800px;
   margin: 0 auto;
