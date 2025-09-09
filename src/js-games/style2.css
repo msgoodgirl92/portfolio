@@ -2,162 +2,360 @@
 
 
 body {
-  background-image:url(squared-paper-texture.jpg);
+  background-image: url(squared-paper-texture.jpg);
   background-position: center;
   background-size: cover;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-  color:black;
+  color: black;
   font-weight: bold;
-  height:100%;
-  text-align:center;
-  font-size:18px;
+  min-height: 100vh;
+  text-align: center;
+  font-size: 18px;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-
-.wrappper{
-  @include clear;
-  width:100%;
-  margin:0 auto;
+.wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-
-canvas{
-  color:white;
-  border:white dashed 2px;
-  padding:15px;
+canvas {
+  color: white;
+  border: white dashed 2px;
+  padding: 15px;
   background: black;
-  float:left;
+  border-radius: 10px;
+  max-width: 100%;
+  height: auto;
 }
-#catagoryName {
-    text-align: center;
-    padding-top: 50px;
-}
-h1, h2, h3 {
-	font-family: 'Roboto', sans-serif;
-	font-weight: bold;
-	text-transform: uppercase;
-   margin:5px 0;
-   padding-bottom: 20px;
-   color: black;
 
+#catagoryName {
+  text-align: center;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+
+h1, h2, h3 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 5px 0;
+  padding-bottom: 20px;
+  color: black;
 }
 
 h1 {
-	font-size: 2.8em;
-    letter-spacing: 8px;
-    font-stretch: extra-expanded;
+  font-size: 2.8em;
+  letter-spacing: 8px;
+  font-stretch: extra-expanded;
 }
 
 h2 {
-	font-size: 1.6em;
+  font-size: 1.6em;
 }
 
-p{
+p {
   font-size: 1.6em;
 }
 
 #alphabet {
-  @include clear;
-  margin:15px auto;
-  padding:0;
-  max-width:900px;
+  margin: 15px auto;
+  padding: 0;
+  max-width: 900px;
   text-align: center;
-  color:blueviolet;
+  color: blueviolet;
   font-weight: bold;
-  width:600px;
+  width: 100%;
   font-size: 25px;
   text-transform: uppercase;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
 
 #alphabet li {
-  float:left;
-  margin: 0 10px 10px 0;
-  list-style:none;
-  width:35px;
-  height:30px;
-  padding-top:10px;
-  background:$white;
-  color:$base-color;
-  cursor:pointer;
-  @include corners(5px);
-  border: solid 1px $white;
-    
-    &:hover{
-      background:$base-color;
-      border: solid 1px $white;
-      color:$white;
-    }
+  list-style: none;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: blueviolet;
+  cursor: pointer;
+  border-radius: 5px;
+  border: solid 1px white;
+  transition: all 0.3s ease;
+  font-size: 20px;
 }
-#wrapper2 {
-    width:70%;
-    margin: 70px auto;
 
+#alphabet li:hover {
+  background: blueviolet;
+  border: solid 1px white;
+  color: white;
+  transform: translateY(-2px);
 }
+
+#wrapper2 {
+  width: 100%;
+  max-width: 800px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
 #hold {
-    float:right;
-    margin-right: 16%;
+  text-align: center;
+  order: 2;
 }
+
+canvas {
+  order: 1;
+  margin: 0 auto;
+  display: block;
+}
+
 #my-word {
-  margin: 0;
+  margin: 20px 0;
   display: block;
   padding: 0;
-  display:block;
+  text-align: center;
 }
 
 #my-word li {
   position: relative;
   list-style: none;
-  margin: 0;
+  margin: 0 5px;
   display: inline-block;
   padding: 0 10px;
-  font-size:1.6em;
+  font-size: 1.6em;
+  border-bottom: 3px solid black;
+  min-width: 30px;
+  text-align: center;
 }
 
 .active {
-  @include opacity;
-  cursor:default;
-    
-  &:hover{
-      @include fade;
-      @include opacity;
-    }
+  opacity: 0.4;
+  cursor: default;
 }
 
-#mylives{
-  font-size:1.6em;
-  text-align:center;
-  display:block;
+.active:hover {
+  opacity: 0.4;
 }
 
-button{
-  @include corners (5px);
-  background:black;
-  color:white;
-  border: solid 1px $white;
-  text-decoration:none;
-  cursor:pointer;
-  font-size:1em;
-  padding:10px 10px;
-  width:140px;
+#mylives {
+  font-size: 1.6em;
+  text-align: center;
+  display: block;
+  margin: 20px 0;
+}
+
+button {
+  border-radius: 5px;
+  background: black;
+  color: white;
+  border: solid 1px white;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 12px 20px;
+  min-width: 140px;
   margin: 10px;
   outline: none;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+button:hover {
+  background: white;
+  border: solid 1px black;
+  color: black;
+  transform: translateY(-2px);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+    font-size: 16px;
+  }
   
-    &:hover{
-      @include transition;
-      background:$white;
-      border: solid 1px $white;
-      color:$base-color;
-    }
+  h1 {
+    font-size: 2.2em;
+    letter-spacing: 4px;
+  }
+  
+  #alphabet {
+    gap: 8px;
+    font-size: 20px;
+  }
+  
+  #alphabet li {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+  
+  #wrapper2 {
+    margin: 20px auto;
+    gap: 20px;
+  }
+  
+  canvas {
+    max-width: 280px;
+    padding: 10px;
+  }
+  
+  #my-word li {
+    font-size: 1.4em;
+    margin: 0 3px;
+    padding: 0 8px;
+    min-width: 25px;
+  }
+  
+  #mylives {
+    font-size: 1.4em;
+  }
+  
+  p {
+    font-size: 1.4em;
+  }
+  
+  button {
+    padding: 10px 15px;
+    min-width: 120px;
+    font-size: 0.9em;
+  }
 }
 
-@media (max-width: 767px) {
-  #alphabet {
-  padding:0 0 0 15px;
-}
+@media (max-width: 480px) {
+  body {
+    padding: 5px;
+    font-size: 14px;
   }
+  
+  h1 {
+    font-size: 1.8em;
+    letter-spacing: 2px;
+    padding-bottom: 10px;
+  }
+  
+  #alphabet {
+    gap: 5px;
+    font-size: 18px;
+    padding: 0 10px;
+  }
+  
+  #alphabet li {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+  
+  #wrapper2 {
+    margin: 15px auto;
+    gap: 15px;
+  }
+  
+  canvas {
+    max-width: 250px;
+    padding: 8px;
+  }
+  
+  #my-word li {
+    font-size: 1.2em;
+    margin: 0 2px;
+    padding: 0 5px;
+    min-width: 20px;
+  }
+  
+  #mylives {
+    font-size: 1.2em;
+  }
+  
+  p {
+    font-size: 1.2em;
+  }
+  
+  button {
+    padding: 8px 12px;
+    min-width: 100px;
+    font-size: 0.8em;
+    margin: 5px;
+  }
+  
+  #catagoryName {
+    padding-top: 10px;
+    margin-bottom: 10px;
+  }
+}
 
-  @media (max-width: 480px) {
-  #alphabet {
-  padding:0 0 0 25px;
-}
+@media (max-width: 320px) {
+  h1 {
+    font-size: 1.5em;
+    letter-spacing: 1px;
   }
+  
+  #alphabet li {
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+  }
+  
+  canvas {
+    max-width: 220px;
+  }
+  
+  #my-word li {
+    font-size: 1em;
+    margin: 0 1px;
+    padding: 0 3px;
+    min-width: 18px;
+  }
+  
+  button {
+    padding: 6px 10px;
+    min-width: 80px;
+    font-size: 0.7em;
+  }
+}
+
+/* Landscape mode for small screens */
+@media (max-height: 600px) and (orientation: landscape) {
+  body {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 1.8em;
+    padding-bottom: 10px;
+  }
+  
+  #wrapper2 {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin: 10px auto;
+  }
+  
+  canvas {
+    max-width: 200px;
+    order: 1;
+  }
+  
+  #hold {
+    order: 2;
+    text-align: left;
+  }
+  
+  #alphabet {
+    margin: 10px auto;
+  }
+}

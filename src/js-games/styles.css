@@ -408,62 +408,222 @@ h1 {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .weatherap {
-    width: 98%;
-    padding: 20px 5px;
-  }
-  #ville {
-    font-size: 2.2em;
-  }
-  #temperature {
-    font-size: 3.5em;
-  }
-  .forecast-container {
-    flex-direction: column;
-    gap: 10px;
+  body {
     padding: 10px;
   }
-  .forecast-item {
-    padding: 15px;
+  
+  .weatherap {
+    width: 95%;
+    padding: 30px 20px;
+    margin: 10px auto;
   }
-  .forecast-container h2 {
-    font-size: 1.2em;
+  
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  #ville {
+    font-size: 2rem;
+  }
+  
+  #temperature {
+    font-size: 4rem;
+  }
+  
+  #changer {
+    width: 180px;
+    padding: 15px 25px;
+    font-size: 0.9rem;
+    margin-top: 30px;
+  }
+  
+  .forecast-container {
+    flex-direction: column;
+    gap: 12px;
+    padding: 15px;
+    max-width: 100%;
+  }
+  
+  .forecast-item {
+    padding: 18px;
+    max-width: none;
+    width: 100%;
+  }
+  
+  .weather-details {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .weather-humidity,
+  .weather-wind,
+  .weather-pressure {
+    padding: 8px 15px;
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 480px) {
+  body {
+    padding: 5px;
+  }
+  
   .weatherap {
-    width: 100%;
-    padding: 10px 2px;
+    width: 98%;
+    padding: 20px 15px;
+    margin: 5px auto;
   }
+  
   h1 {
-    font-size: 1.2em;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
   }
+  
   #ville {
-    font-size: 1.2em;
+    font-size: 1.6rem;
   }
+  
   #temperature {
-    font-size: 2em;
+    font-size: 3rem;
+    margin: 15px 0;
   }
+  
   #changer {
-    width: 100%;
-    padding: 10px 0;
-    font-size: 0.9em;
+    width: 160px;
+    padding: 12px 20px;
+    font-size: 0.8rem;
+    margin-top: 25px;
+    margin-bottom: 15px;
   }
+  
   .forecast-container {
-    flex-direction: column;
-    gap: 6px;
-    padding: 4px;
+    gap: 10px;
+    padding: 10px;
   }
+  
   .forecast-item {
-    padding: 8px;
+    padding: 15px;
   }
+  
   .forecast-icon {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
   }
-  .forecast-day, .forecast-temp, .forecast-date {
-    font-size: 0.9em;
+  
+  .forecast-day {
+    font-size: 1rem;
+  }
+  
+  .forecast-temp {
+    font-size: 0.9rem;
+  }
+  
+  .forecast-date {
+    font-size: 0.8rem;
+  }
+  
+  .forecast-details {
+    font-size: 0.8rem;
+  }
+  
+  .weather-details {
+    gap: 10px;
+  }
+  
+  .weather-humidity,
+  .weather-wind,
+  .weather-pressure {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .weatherap {
+    padding: 15px 10px;
+  }
+  
+  h1 {
+    font-size: 1.3rem;
+  }
+  
+  #ville {
+    font-size: 1.4rem;
+  }
+  
+  #temperature {
+    font-size: 2.5rem;
+  }
+  
+  #changer {
+    width: 140px;
+    padding: 10px 15px;
+    font-size: 0.7rem;
+  }
+  
+  .forecast-item {
+    padding: 12px;
+  }
+  
+  .forecast-icon {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .forecast-day {
+    font-size: 0.9rem;
+  }
+  
+  .forecast-temp {
+    font-size: 0.8rem;
+  }
+  
+  .forecast-date {
+    font-size: 0.7rem;
+  }
+  
+  .weather-humidity,
+  .weather-wind,
+  .weather-pressure {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Landscape mode for mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+  .weatherap {
+    padding: 15px 20px;
+    margin: 5px auto;
+  }
+  
+  h1 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+  
+  #temperature {
+    font-size: 2.5rem;
+    margin: 10px 0;
+  }
+  
+  #changer {
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .forecast-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px;
+  }
+  
+  .forecast-item {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px;
   }
 }
 

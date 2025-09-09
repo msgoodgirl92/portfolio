@@ -15,13 +15,20 @@
 	<div class="input">
 
 		<p>IZNOS KREDITA: RSD</p>
-		 <input id="amount" type="number" min="1" max="5000000" onchange="computeLoan()">
+		 <input id="amount" type="number" min="1" max="5000000">
 		<p>KAMATNA STOPA: %</p>
-		 <input id="interest_rate" min="0" max="100" value="10" step=".1" onchange="computeLoan()">
+		 <input id="interest_rate" min="0" max="100" value="10" step=".1">
 		<p>ROK KREDITA U MESECIMA: </p>
-		 <input id="months" type="number" min="1" max="300" value="1" step="1" onchange="computeLoan()">
-		 <p style="text-align: center; font-weight: bold">REZULTAT (unesi i klikni enter)</p>
-		 <h2 id="payment"></h2>
+		 <input id="months" type="number" min="1" max="300" value="1" step="1">
+
+		 <button type="button" onclick="computeLoan()" style="display:block;margin:12px auto;">Izračunaj</button>
+
+		 <div id="result" style="display:none; text-align:center;">
+		   <p style="font-weight: bold">REZULTAT (unesi i klikni Enter ili dugme)</p>
+		   <h2 id="payment"></h2>
+		   <p>Ukupan iznos: <span id="totalAmount"></span></p>
+		   <p>Ukupna kamata: <span id="totalInterest"></span></p>
+		 </div>
 	   </div>
 	</div>
 
