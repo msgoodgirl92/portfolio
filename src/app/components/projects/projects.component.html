@@ -12,7 +12,7 @@
                 <mat-icon>visibility</mat-icon>
                 Live Demo
               </a>
-              <a [href]="project.githubLink" target="_blank" class="project-link">
+              <a *ngIf="project.id === 1" [href]="project.githubLink" target="_blank" class="project-link">
                 <mat-icon>code</mat-icon>
                 View Code
               </a>
