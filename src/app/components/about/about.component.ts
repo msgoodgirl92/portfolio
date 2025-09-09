@@ -8,12 +8,7 @@ interface Skill {
   category: 'frontend' | 'backend' | 'tools';
 }
 
-interface Experience {
-  title: string;
-  company: string;
-  period: string;
-  description: string;
-}
+
 
 @Component({
   selector: 'app-about',
@@ -34,20 +29,7 @@ export class AboutComponent {
     { name: 'Figma', level: 80, category: 'tools' }
   ];
 
-  experiences: Experience[] = [
-    {
-      title: 'Frontend Developer',
-      company: 'Tech Solutions Inc.',
-      period: '2022 - Present',
-      description: 'Developing modern web applications using Angular and TypeScript. Collaborating with design and backend teams to create seamless user experiences.'
-    },
-    {
-      title: 'Junior Developer',
-      company: 'Digital Creations',
-      period: '2020 - 2022',
-      description: 'Worked on various web projects, focusing on responsive design and user interface development. Implemented new features and fixed bugs.'
-    }
-  ];
+
 
   get frontendSkills() {
     return this.skills.filter(skill => skill.category === 'frontend');

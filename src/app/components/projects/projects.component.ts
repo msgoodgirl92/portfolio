@@ -174,6 +174,8 @@ export class ProjectsComponent implements OnInit {
   ngOnInit() {
     this.filteredProjects = [...this.projects];
     this.allTechnologies = [...new Set(this.projects.flatMap(p => p.technologies))];
+    // Scroll to top when component loads
+    window.scrollTo(0, 0);
   }
 
   toggleTechnology(tech: string) {

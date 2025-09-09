@@ -1,4 +1,5 @@
 {
     "angular.enable-strict-mode-prompt": false,
-    "codium.codeCompletion.enable": false
+    "codium.codeCompletion.enable": false,
+    "CodeGPT.apiKey": "OpenAI"
 }

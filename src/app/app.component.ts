@@ -5,6 +5,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from './components/footer/footer.component';
+import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.component';
 
 interface Project {
   title: string;
@@ -30,7 +31,8 @@ interface TechStack {
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    FooterComponent
+    FooterComponent,
+    ScrollToTopComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -93,11 +95,15 @@ export class AppComponent {
   navigateTo(route: string) {
     this.router.navigate([route]);
     this.isMobileMenuOpen = false;
+    // Scroll to top when navigating to any route
+    setTimeout(() => window.scrollTo(0, 0), 0);
   }
 
   navigateHome() {
     this.router.navigate(['']);
     this.isMobileMenuOpen = false;
+    // Scroll to top when navigating home
+    setTimeout(() => window.scrollTo(0, 0), 0);
   }
 
   toggleMobileMenu() {
