@@ -47,7 +47,7 @@ export class ProjectsComponent implements OnInit {
   projects: Project[] = [
     {
       id: 1,
-      title: 'Banka aplikacija',
+      title: 'Bank App',
       description: 'A modern web application built with Angular, featuring API integration and responsive design.',
       image: 'assets/images/1.PNG',
       technologies: ['Angular', 'TypeScript', 'SCSS', 'Material UI', 'JSON', 'HTML', 'API'],
@@ -74,8 +74,8 @@ export class ProjectsComponent implements OnInit {
     },
     {
       id: 4,
-      title: 'Kalkulator',
-      description: 'Jednostavna web aplikacija za kalkulator.',
+      title: 'Calculator App',
+      description: 'A basic calculator app for quick and easy arithmetic operations',
       image: 'assets/images/1112.PNG',
       technologies: ['HTML', 'CSS', 'JavaScript'],
       demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/calculator.html',
@@ -84,7 +84,7 @@ export class ProjectsComponent implements OnInit {
     {
       id: 5,
       title: 'Loan Calculator',
-      description: 'Web aplikacija za izračunavanje kredita i mesečnih rata.',
+      description: 'A simple loan calculator app that helps users estimate monthly payments and total interest.',
       image: 'assets/images/loan.PNG',
       technologies: ['HTML', 'CSS', 'JavaScript'],
       demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/loan.html',
@@ -93,7 +93,7 @@ export class ProjectsComponent implements OnInit {
     {
       id: 6,
       title: 'Hangman Game',
-      description: 'Klasična Hangman igra sa različitim kategorijama reči (Premier League timovi, filmovi, gradovi) i interaktivnim crtanjem. Igra uključuje overlay sa rešenjem na kraju igre.',
+      description: 'A classic Hangman game where players guess letters to reveal the hidden word.',
       image: 'assets/images/hangman.PNG',
       technologies: ['HTML', 'CSS', 'JavaScript', 'Canvas API', 'Game Development'],
       demoLink: 'https://msgoodgirl92.github.io/portfolio/js-games/index2.html',
@@ -104,22 +104,22 @@ export class ProjectsComponent implements OnInit {
   websites: Website[] = [
     {
       id: 1,
-      title: 'Website 1',
-      description: 'Opis prvog website-a',
+      title: 'Natura Pro',
+      description: 'A modern beauty website showcasing products designed to inspire confidence and self-care.',
       image: 'assets/images/334.png',
       url: 'https://example1.com'
     },
     {
       id: 2,
-      title: 'Website 2',
-      description: 'Opis drugog website-a',
+      title: 'Blushing Reflection',
+      description: '"A stylish website for a beauty salon offering professional care and relaxing treatments.',
       image: 'assets/images/22.png',
       url: 'https://example2.com'
     },
     {
       id: 3,
-      title: 'Website 3',
-      description: 'Opis trećeg website-a',
+      title: 'Optimiize',
+      description: 'A wellness spa website offering relaxing treatments and slimming, protein products for healthy living.',
       image: 'assets/images/33.png',
       url: 'https://example3.com'
     }

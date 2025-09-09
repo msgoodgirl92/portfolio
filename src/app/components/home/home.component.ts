@@ -32,7 +32,7 @@ interface BasicSkill {
 export class HomeComponent {
   featuredProjects: Project[] = [
     {
-      title: 'Banka aplikacija',
+      title: 'Bank App',
       description: 'A modern web application built with Angular, featuring API integration and responsive design.',
       image: 'assets/images/1.PNG',
       demoUrl: 'https://msgoodgirl92.github.io/angularapi',
