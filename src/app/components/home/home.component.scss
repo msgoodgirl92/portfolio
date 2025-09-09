@@ -435,6 +435,22 @@
   }
 }
 
+// Scroll Reveal Animations
+.featured-projects,
+.tech-stack-preview,
+.about-preview {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.featured-projects.reveal,
+.tech-stack-preview.reveal,
+.about-preview.reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (max-width: 480px) {
   .tech-stack-preview {
     .section-header .section-title {

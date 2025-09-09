@@ -12,10 +12,6 @@
                 <mat-icon>visibility</mat-icon>
                 Live Demo
               </a>
-              <a *ngIf="project.id === 1" [href]="project.githubLink" target="_blank" class="project-link">
-                <mat-icon>code</mat-icon>
-                View Code
-              </a>
             </div>
           </div>
         </div>
@@ -33,7 +29,7 @@
   </div>
 </section>
 
-<section class="websites-section">
+<section class="websites-section" [class.fade-in]="websitesFadeIn">
   <div class="container">
     <h1 class="section-title">Websites</h1>
     <div class="websites-grid">

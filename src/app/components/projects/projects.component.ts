@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -43,7 +43,7 @@ interface Logo {
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss']
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent implements OnInit, AfterViewInit {
   projects: Project[] = [
     {
       id: 1,
@@ -171,11 +171,55 @@ export class ProjectsComponent implements OnInit {
   // Websites inline preview state
   activeWebsiteImage: string | null = null;
 
+  // Websites section fade-in state
+  websitesFadeIn: boolean = false;
+
   ngOnInit() {
     this.filteredProjects = [...this.projects];
     this.allTechnologies = [...new Set(this.projects.flatMap(p => p.technologies))];
     // Scroll to top when component loads
     window.scrollTo(0, 0);
+  }
+
+  ngAfterViewInit() {
+    this.addFadeInEffect();
+    this.setupWebsitesFadeInObserver();
+  }
+
+  setupWebsitesFadeInObserver() {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.websitesFadeIn = true;
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const websitesSection = document.querySelector('.websites-section');
+    if (websitesSection) {
+      observer.observe(websitesSection);
+    }
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    // Removed parallax scroll effect as per user request to revert changes
+  }
+
+  addFadeInEffect() {
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach((card, index) => {
+      setTimeout(() => {
+        card.classList.add('fade-in');
+      }, index * 100);
+    });
   }
 
   toggleTechnology(tech: string) {

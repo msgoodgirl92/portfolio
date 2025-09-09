@@ -61,6 +61,20 @@
   max-width: 1200px;
   width: 100%;
   gap: 4rem;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: heroFadeInUp 1s ease-out 0.5s forwards;
+}
+
+@keyframes heroFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-illustration {
@@ -261,19 +275,19 @@
 
 @keyframes swapPosition {
   0%, 100% {
-    transform: translate(0, 0) rotate(var(--rotation, 0deg));
+    transform: translate(0, 0) rotate(var(--rotation, 0deg)) scale(1);
   }
   20% {
-    transform: translate(25px, 15px) rotate(calc(var(--rotation, 0deg) + 5deg));
+    transform: translate(30px, 20px) rotate(calc(var(--rotation, 0deg) + 8deg)) scale(1.05);
   }
   40% {
-    transform: translate(-15px, -25px) rotate(calc(var(--rotation, 0deg) - 5deg));
+    transform: translate(-20px, -30px) rotate(calc(var(--rotation, 0deg) - 8deg)) scale(0.95);
   }
   60% {
-    transform: translate(15px, 25px) rotate(calc(var(--rotation, 0deg) + 5deg));
+    transform: translate(20px, 30px) rotate(calc(var(--rotation, 0deg) + 8deg)) scale(1.05);
   }
   80% {
-    transform: translate(-25px, -15px) rotate(calc(var(--rotation, 0deg) - 5deg));
+    transform: translate(-30px, -20px) rotate(calc(var(--rotation, 0deg) - 8deg)) scale(0.95);
   }
 }
 
@@ -347,6 +361,7 @@
     border: none;
     position: relative;
     overflow: hidden;
+    animation: buttonBounce 0.8s ease-out 1.5s both;
 
     &::before {
       content: '';
@@ -439,6 +454,18 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes buttonBounce {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    transform: scale(1.05) translateY(-5px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
   }
 }
 

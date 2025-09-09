@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeroComponent } from '../hero/hero.component';
@@ -29,7 +29,7 @@ interface BasicSkill {
   standalone: true,
   imports: [CommonModule, RouterModule, HeroComponent, FooterComponent, MatIconModule, MatButtonModule]
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit {
   featuredProjects: Project[] = [
     {
       title: 'Bank App',
@@ -111,6 +111,31 @@ export class HomeComponent {
       isSvg: true
     }
   ];
+
+  ngAfterViewInit() {
+    this.setupScrollReveal();
+  }
+
+  setupScrollReveal() {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal');
+        }
+      });
+    }, observerOptions);
+
+    // Observe sections
+    const sections = document.querySelectorAll('.featured-projects, .tech-stack-preview, .about-preview');
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  }
 
   downloadCV() {
     const link = document.createElement('a');
